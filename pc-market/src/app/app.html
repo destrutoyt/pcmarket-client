@@ -2,13 +2,27 @@
 <html lang="en">
   <head>
     <meta charset="utf-8" />
-    <title>PC Market</title>
     <base href="/" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <link rel="icon" type="image/x-icon" href="favicon.ico" />
   </head>
   <body>
-    <h1>Welcome to PC Market!</h1>
-    <p>Your one-stop shop for all your PC needs.</p>
+    <header>
+      <nav class="navbar">
+        <ul>
+          <li><a href="/"><img src="app-logo.png" alt="PC Market Logo"></a></li>
+          <li class="nav-links-center">
+            <a class="nav-link" routerLink="/about" routerLinkActive="active">About Us</a>
+            <a class="nav-link" routerLink="/seller" routerLinkActive="active">Become a Seller</a>
+            <a class="nav-link" routerLink="/" routerLinkActive="active">Contact</a>
+            <a class="nav-link" routerLink="/" routerLinkActive="active">Sign In / Log In</a>
+          </li>
+        </ul>
+      </nav>
+    </header>
+
+    <main class="main-content">
+      <router-outlet></router-outlet>
+    </main>
   </body>
 </html>

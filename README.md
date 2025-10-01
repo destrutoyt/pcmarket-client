@@ -2,7 +2,6 @@
 
 ![GitHub License](https://img.shields.io/github/license/destrutoyt/pcmarket-client)
 ![GitHub Commit Activity (Main)](https://img.shields.io/github/commit-activity/t/destrutoyt/pcmarket-client/main)
-![GitHub Commit Activity (Dev)](https://img.shields.io/github/commit-activity/t/destrutoyt/pcmarket-client/dev)
 ![version](https://img.shields.io/badge/version-1.0.0-red)
 
 ## 🚀 Project Overview

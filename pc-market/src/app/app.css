@@ -1,6 +1,10 @@
 main {
     padding: 0px 150px 0 150px;
 }
+.logo {
+    height: 5vh;
+    width: auto;
+}
 .main-content {
     text-align: center;
     margin-bottom: 20px;

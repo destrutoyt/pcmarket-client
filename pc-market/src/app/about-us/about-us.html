@@ -24,7 +24,9 @@
   </div>
   <div class="container-child">
     <h1 class="fade-on-scroll" id="fade-second">WHAT WE OFFER?</h1>
-    <p class="fade-on-scroll" id="fade-second">Our platform offers a wide range of features including:</p>
+    <p class="fade-on-scroll" id="fade-second">
+      Our platform offers a wide range of features including:
+    </p>
     <ul class="features-list">
       <li class="feature-item fade-on-scroll">
         <h3>Seller Dashboard</h3>
@@ -63,15 +65,108 @@
     </p>
     <ul class="fade-on-scroll">
       <li class="fade-on-scroll">Be a registered PC Market user.</li>
-      <li class="fade-on-scroll">Be at least 18 years of age. Users aged 16-17 may register with parental consent.</li>
-      <li class="fade-on-scroll">Account must be in good standing.</li>
+      <li class="fade-on-scroll">
+        Be at least 18 years of age. Users aged 16-17 may register with parental consent.
+      </li>
+      <li class="fade-on-scroll">Have a reliable shipping method.</li>
       <li class="fade-on-scroll">Provide a valid ID for identity verification.</li>
       <li class="fade-on-scroll">Have a valid bank account for secure payment processing.</li>
-      <li class="fade-on-scroll">Agree to our <a href="#">Seller's Code of Conduct.</a></li>
+      <li class="fade-on-scroll">
+        Agree to our
+        <button class="seller-code-button" (click)="openPopup()">Seller's Code of Conduct.</button>
+      </li>
     </ul>
-    <p class="fade-on-scroll" style="opacity: 0;">If you meet these requirements, you're ready to get started!</p>
+    <p class="fade-on-scroll" id="fade-third" style="opacity: 0">
+      If you meet these requirements, you're ready to get started!
+    </p>
     <a href="#">
       <button class="cta-button fade-on-scroll">Join Us Today!</button>
     </a>
+    <div class="pop-up-container" id="pop-up-container">
+      <div class="pop-up-box">
+        <h1>Seller's Code of Conduct</h1>
+        <p>
+          By becoming a seller on PC Market, you agree to adhere to our Seller's Code of Conduct,
+          which includes:
+        </p>
+        <ul>
+          <li class="seller-code-item">
+            Honesty and Transparency: Provide accurate information about product including
+            condition, specifications, and any defects.
+          </li>
+          <li class="seller-code-item">
+            Customer Service: Respond promptly to buyer inquiries and resolve issues professionally.
+          </li>
+          <li class="seller-code-item">
+            Compliance: Do not post illegal content. Follow all applicable laws and regulations
+            related to selling online.
+          </li>
+          <li class="seller-code-item">
+            Respect: Treat buyers with respect and professionalism at all times.
+          </li>
+          <li class="seller-code-item">
+            No Fraudulent Activity: Do not engage in any form of fraud, including fake reviews or
+            misrepresentation of products.
+          </li>
+          <li class="seller-code-item">
+            Sensitive information: Do not share personal or sensitive information about yourself or
+            others.
+          </li>
+        </ul>
+        <p>
+          We reserve the right to suspend or terminate accounts that violate these guidelines to
+          maintain a safe and trustworthy marketplace for all users.<br />
+          Be aware that fraudulent activity (scams, phishing, etc.) will be reported to the relevant
+          authorities.
+        </p>
+        <button class="close-button" (click)="closePopup()">CLOSE</button>
+      </div>
+    </div>
+  </div>
+  <div class="container-child">
+    <h1 class="fade-on-scroll" id="fade-fourth">FREQUENTLY ASKED QUESTIONS</h1>
+    <p class="fade-on-scroll" id="fade-fourth">
+      We understand you might have some questions about our platform. For that, we have compiled a
+      list of the most frequently asked questions to help you navigate PC Market with ease.
+    </p>
+    <div class="faq-container fade-on-scroll" id="fade-fourth">
+      <div class="faq-item fade-on-scroll">
+        <h3>How do I create an account?</h3>
+        <p>
+          Click on the "Sign Up" button at the top right corner of the homepage and fill in the
+          required information. Once you verified your email, you can start exploring the platform.
+        </p>
+      </div>
+
+      <div class="faq-item fade-on-scroll">
+        <h3>How does your 30-day buyer protection work?</h3>
+        <p>
+          Our 30-day buyer protection ensures that you can shop with confidence. If you encounter
+          any issues with your purchase, such as not receiving the item or receiving a significantly
+          different product, you can file a claim within 30 days of delivery. <br /><br />
+          Our support team will investigate the issue and work towards a resolution, which may
+          include a refund or replacement.
+        </p>
+      </div>
+
+      <div class="faq-item fade-on-scroll">
+        <h3>Does PC Market add fees for buyers or sellers?</h3>
+        <p>
+          PC Market is committed to transparency. <br /><br />
+          For buyers, there are no hidden fees. <br />
+          For sellers, we charge a small commission fee on each sale. Either <b>3%</b> or
+          <b>$100</b>, whichever is greater.
+        </p>
+      </div>
+
+      <div class="faq-item fade-on-scroll">
+        <h3>Do you charge for shipping?</h3>
+        <p>
+          PC Market does not charge for shipping. Shipping costs are determined by the seller and
+          depend on the buyer's location and chosen shipping method.
+        </p>
+      </div>
+    </div>
+    <p class="fade-on-scroll" id="fade-fourth">Still got questions? Our <a href="#">support team</a> is here to help!</p>
   </div>
 </div>

@@ -28,21 +28,48 @@ p {
   animation: fadeIn 0.8s ease-in-out forwards;
 }
 
-#fade-first { animation-delay: 0s; }
-#fade-second { animation-delay: 2s; }
-#fade-third { animation-delay: 5s; }
+#fade-first {
+  animation-delay: 0s;
+}
+#fade-second {
+  animation-delay: 2s;
+}
+#fade-third {
+  animation-delay: 5s;
+}
+#fade-fourth {
+  animation-delay: 7s;
+}
 
-.team-list li.fade-on-scroll:nth-child(1) { animation-delay: 1s; }
-.team-list li.fade-on-scroll:nth-child(2) { animation-delay: 0.5s; }
-.team-list li.fade-on-scroll:nth-child(3) { animation-delay: 1s; }
+.team-list li.fade-on-scroll:nth-child(1) {
+  animation-delay: 1s;
+}
+.team-list li.fade-on-scroll:nth-child(2) {
+  animation-delay: 0.5s;
+}
+.team-list li.fade-on-scroll:nth-child(3) {
+  animation-delay: 1s;
+}
 
-.features-list li.fade-on-scroll:nth-child(1) { animation-delay: 3s; }
-.features-list li.fade-on-scroll:nth-child(2) { animation-delay: 3.5s; }
-.features-list li.fade-on-scroll:nth-child(3) { animation-delay: 4s; }
-.features-list li.fade-on-scroll:nth-child(4) { animation-delay: 4.5s; }
+.features-list li.fade-on-scroll:nth-child(1) {
+  animation-delay: 3s;
+}
+.features-list li.fade-on-scroll:nth-child(2) {
+  animation-delay: 3.5s;
+}
+.features-list li.fade-on-scroll:nth-child(3) {
+  animation-delay: 4s;
+}
+.features-list li.fade-on-scroll:nth-child(4) {
+  animation-delay: 4.5s;
+}
 
-.container-child.seller-info li.fade-on-scroll { animation-delay: 6s; }
-.cta-button.fade-on-scroll { animation-delay: 6s; }
+.container-child.seller-info li.fade-on-scroll {
+  animation-delay: 6s;
+}
+.cta-button.fade-on-scroll {
+  animation-delay: 6s;
+}
 
 .team-list li {
   list-style-type: none;
@@ -56,7 +83,7 @@ p {
   border-radius: 10%;
   object-fit: cover;
   padding: 5px;
-  border: 1px solid transparent; 
+  border: 1px solid transparent;
   background: linear-gradient(120deg, #87f8cd, #892fff);
   background-size: 200% 200%;
   animation: borderScan 3s linear forwards;
@@ -141,7 +168,9 @@ p {
   font-weight: bold;
   text-transform: uppercase;
   cursor: pointer;
-  transition: background-color 0.3s ease, transform 0.2s ease;
+  transition:
+    background-color 0.3s ease,
+    transform 0.2s ease;
   text-decoration: none;
 }
 .cta-button:hover {
@@ -152,7 +181,90 @@ p {
   text-decoration: none;
   color: #007bff;
 }
+.seller-code-button {
+  background: none;
+  border: none;
+  color: #007bff;
+  text-decoration: underline;
+  cursor: pointer;
+  font-size: 1rem;
+  padding: 0;
+}
+.pop-up-container {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.7);
+  align-items: center; /* centers vertically */
+  justify-content: center; /* centers horizontally */
+  z-index: 1000;
+}
+.pop-up-box {
+  background: #fff;
+  color: #000;
+  padding: 30px;
+  border-radius: 10px;
+  max-width: 600px;
+  width: 90%;
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
+  text-align: left;
+  animation: scaleIn 0.3s ease;
+}
+.close-button {
+  padding: 10px 15px;
+  border: 1px solid #fff;
+  width: 10vh;
+  border-radius: 5px;
+  background: rgb(255, 84, 84);
+  font-size: 1.2rem;
+  color: #fff;
+  cursor: pointer;
+  transition: background 0.3s ease;
+}
+.close-button:hover {
+  background: rgb(175, 24, 24);
+}
+.pop-up-container .seller-code-item {
+  background-color: rgb(240, 237, 191) !important;
+  border-left: 5px solid #e09a32 !important;
+}
 
+.faq-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(auto, 1fr));
+  gap: 20px;
+  width: 100%;
+  max-width: 1000px;
+  margin: 20px auto;
+  padding-bottom: 5px;
+}
+.faq-item {
+  background-color: #f9f9f9;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  padding: 20px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+.faq-item h3 {
+  font-size: 1.2rem;
+  font-weight: bold;
+  margin-bottom: 10px;
+  color: #007bff;
+}
+.faq-item p {
+  text-align: left;
+  font-size: 1rem;
+  line-height: 1.5;
+  color: #555;
+}
+.faq-item:hover {
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+  transform: translateY(-2px);
+  transition: all 0.3s ease;
+}
 /* Let fade-in animation only animate translate + opacity */
 @keyframes fadeIn {
   from {
@@ -170,5 +282,15 @@ p {
   }
   to {
     background-position: 100% 50%;
+  }
+}
+@keyframes scaleIn {
+  from {
+    transform: scale(0.8);
+    opacity: 0;
+  }
+  to {
+    transform: scale(1);
+    opacity: 1;
   }
 }

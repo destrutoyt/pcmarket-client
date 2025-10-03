@@ -5,7 +5,7 @@ import { isPlatformBrowser } from '@angular/common';
   selector: 'app-about-us',
   imports: [],
   templateUrl: './about-us.html',
-  styleUrl: './about-us.css'
+  styleUrls: ['./about-us.css']
 })
 export class AboutUsComponent implements AfterViewInit {
 
@@ -31,5 +31,15 @@ export class AboutUsComponent implements AfterViewInit {
         observer.observe(element);
       });
     }
+  }
+
+  openPopup() {
+    const popup = document.getElementById("pop-up-container");
+    if (popup) popup.style.display = "flex";
+  }
+
+  closePopup() {
+    const popup = document.getElementById("pop-up-container");
+    if (popup) popup.style.display = "none";
   }
 }

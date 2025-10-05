@@ -1,0 +1,76 @@
+<div class="main-wrapper">
+  <!-- The main container for the entire form/slider layout -->
+  <div class="container auth-container">
+    
+    <!-- 1. Form Container - REGISTRATION (Left side, initially covered) -->
+    <div class="container-child form-panel registration-panel" [ngClass]="{'active': !showLogin()}">
+      <h2>Create Your Account</h2>
+      <form (ngSubmit)="onRegister()">
+        <div class="input-group">
+          <input type="text" placeholder="First Name" required>
+        </div>
+        <div class="input-group">
+          <input type="text" placeholder="Last Name" required>
+        </div>
+        <div class="input-group">
+          <input type="email" placeholder="Username" required>
+        </div>
+        <div class="input-group">
+          <input type="password" placeholder="Password (min. 8 characters)" required minlength="8">
+        </div>
+        <div class="input-group">
+          <input type="text" placeholder="Date of Birth (DD/MM/YYYY)" required pattern="\d{2}/\d{2}/\d{4}">
+        </div>
+        <div class="input-group">
+          <input type="text" placeholder="Address" required>
+        </div>
+        <div class="input-group">
+          <input type="text" placeholder="Apt/Suite (optional)">
+        </div>
+        <div class="input-group">
+          <input type="text" placeholder="Country" required>
+        </div>
+        <div class="input-group">
+          <input type="text" placeholder="State" required>
+        </div>
+        <div class="input-group">
+          <input type="text" placeholder="Zip Code" required pattern="\d{5}">
+        </div>
+        <button class="cta-button auth-button" type="submit">Register</button>
+      </form>
+    </div>
+
+    <!-- 2. Form Container - LOGIN (Right side, initially visible) -->
+    <div class="container-child form-panel login-panel" [ngClass]="{'active': showLogin()}">
+      <h2>Welcome Back!</h2>
+      <form (ngSubmit)="onLogin()">
+        <div class="input-group">
+          <input type="email" placeholder="Email Address" required>
+        </div>
+        <div class="input-group">
+          <input type="password" placeholder="Password" required>
+        </div>
+        <a href="#" class="forgot-password">Forgot Password?</a>
+        <button class="cta-button auth-button" type="submit">LOG IN</button>
+      </form>
+    </div>
+
+    <!-- 3. Sliding Panel (The moving background and toggle button) -->
+    <div class="container-child slide-panel" [ngClass]="{'move-right': showLogin()}">
+      <!-- Content for the slide panel when on the REGISTRATION side (default) -->
+      <div class="slide-content register-content" *ngIf="!showLogin()">
+        <h2>Already a User?</h2>
+        <p>Log in to access your dashboard and continue buying or selling PCs.</p>
+        <button class="ghost-button" (click)="toggleForm()">Sign In</button>
+      </div>
+
+      <!-- Content for the slide panel when on the LOGIN side -->
+      <div class="slide-content login-content" *ngIf="showLogin()">
+        <h2>New User?</h2>
+        <p>Register now to buy from trusted sellers or better yet, become a seller yourself!</p>
+        <button class="ghost-button" (click)="toggleForm()">Sign Up</button>
+      </div>
+    </div>
+
+  </div>
+</div>

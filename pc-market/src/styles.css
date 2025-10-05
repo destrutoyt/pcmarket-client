@@ -70,6 +70,7 @@ p, h1, h2, h3, h4, h5, h6, a, select, button, input, textarea, li {
   justify-content: center;
   gap: 20px;
 }
+
 /* Animations */
 /* Smooth gradient slide */
 @keyframes colorSlide {

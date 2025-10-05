@@ -6,6 +6,7 @@ import { SellerDashComponent } from './seller-dash/seller-dash.component';
 import { AdminDashComponent } from './admin-dash/admin-dash.component';
 import { CartComponent } from './cart/cart.component';
 import { OrdersComponent } from './orders/orders.component';
+import { UserRegistrationComponent } from './user-registration/user-registration.component';
 
 export const routes: Routes = [
   { path: '', component: HomeComponent },
@@ -15,4 +16,5 @@ export const routes: Routes = [
   { path: 'admin', component: AdminDashComponent },
   { path: 'cart', component: CartComponent },
   { path: 'orders', component: OrdersComponent },
+  { path: 'register', component: UserRegistrationComponent },
 ];

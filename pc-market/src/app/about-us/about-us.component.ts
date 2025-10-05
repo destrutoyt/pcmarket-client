@@ -1,9 +1,10 @@
 import { Component, AfterViewInit, PLATFORM_ID, Inject } from '@angular/core';
 import { isPlatformBrowser } from '@angular/common';
+import { RouterLink } from "@angular/router";
 
 @Component({
   selector: 'app-about-us',
-  imports: [],
+  imports: [RouterLink],
   templateUrl: './about-us.html',
   styleUrls: ['./about-us.css']
 })

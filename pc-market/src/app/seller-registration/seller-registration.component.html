@@ -1,0 +1,118 @@
+<div class="container">
+  <div class="container-child seller-registration-grid">
+    <div class="form-column">
+      <h1>Become a Seller</h1>
+      <p>Complete the form below to start selling on PC Market.</p>
+
+      <form>
+        <div class="input-group">
+          <label for="shop-name">Shop Name</label>
+          <input type="text" id="shop-name" placeholder="e.g., Mike's PC Emporium" required />
+        </div>
+
+        <div class="input-group">
+          <label for="shop-description">Shop Description</label>
+          <textarea
+            id="shop-description"
+            placeholder="Tell us about your shop (Up to 200 characters)"
+            rows="3" required
+            maxlength="200"
+          ></textarea>
+        </div>
+
+        <div class="input-group">
+          <label for="account-number">Bank Account Number</label>
+          <input type="text" id="account-number" placeholder="Enter your account number" required />
+        </div>
+
+        <div class="input-group">
+          <label for="routing-number">Routing Number</label>
+          <input type="text" id="routing-number" placeholder="Enter your routing number" required />
+        </div>
+
+        <div class="input-group">
+          <label for="id-upload">Upload Valid ID</label>
+          <input type="file" id="id-upload" accept="image/*" />
+        </div>
+
+        <p class="disclaimer">
+          <strong>Disclaimer:</strong> This is a mock website for showcase purposes. Please do not
+          use real ID or bank information. Any image file will be accepted for the ID upload.
+        </p>
+
+        <button class="cta-button" type="submit" (click)="registerSeller()">Submit Application</button>
+      </form>
+    </div>
+
+    <div class="info-column">
+      <div class="requirements-box">
+        <h2>Seller Requirements</h2>
+        <ul>
+          <li>Be a registered PC Market user.</li>
+          <li>Be at least 18 years of age. Users aged 16-17 may register with parental consent.</li>
+          <li>Have a reliable shipping method.</li>
+          <li>Provide a valid ID for identity verification.</li>
+          <li>Have a valid bank account for secure payment processing.</li>
+          <li>
+            Agree to our
+            <button class="seller-code-button" (click)="openPopup()">
+              Seller's Code of Conduct.
+            </button>
+          </li>
+        </ul>
+      </div>
+
+      <div class="benefits-box">
+        <h2>Why Sell With Us?</h2>
+        <ul>
+          <li>We provide a secure and trustworthy platform for your business.</li>
+          <li>We offer you easy-to-use tools for managing your shop.</li>
+          <li>Access to a large customer base actively looking for products.</li>
+          <li>Dedicated support to help you succeed.</li>
+          <li>Low fees to maximize your profits. (3% up to $100)</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <div class="pop-up-container" id="pop-up-container">
+    <div class="pop-up-box">
+      <h1>Seller's Code of Conduct</h1>
+      <p>
+        By becoming a seller on PC Market, you agree to adhere to our Seller's Code of Conduct,
+        which includes:
+      </p>
+      <ul>
+        <li class="seller-code-item">
+          Honesty and Transparency: Provide accurate information about product including condition,
+          specifications, and any defects.
+        </li>
+        <li class="seller-code-item">
+          Customer Service: Respond promptly to buyer inquiries and resolve issues professionally.
+        </li>
+        <li class="seller-code-item">
+          Compliance: Do not post illegal content. Follow all applicable laws and regulations
+          related to selling online.
+        </li>
+        <li class="seller-code-item">
+          Respect: Treat buyers with respect and professionalism at all times.
+        </li>
+        <li class="seller-code-item">
+          No Fraudulent Activity: Do not engage in any form of fraud, including fake reviews or
+          misrepresentation of products.
+        </li>
+        <li class="seller-code-item">
+          Sensitive information: Do not share personal or sensitive information about yourself or
+          others.
+        </li>
+      </ul>
+      <p>
+        We reserve the right to suspend or terminate accounts that violate these guidelines to
+        maintain a safe and trustworthy marketplace for all users.<br />
+        Be aware that fraudulent activity (scams, phishing, etc.) will be reported to the relevant
+        authorities.
+      </p>
+      <button class="close-button" (click)="closePopup()">CLOSE</button>
+    </div>
+  </div>
+</div>

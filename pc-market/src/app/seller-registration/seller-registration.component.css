@@ -1,0 +1,119 @@
+/* --- Main Grid Layout --- */
+.seller-registration-grid {
+  display: grid;
+  grid-template-columns: 2fr 1fr; /* Form takes 2/3, info takes 1/3 */
+  gap: 40px;
+  width: 100%;
+  max-width: 1200px;
+  margin: 40px auto;
+  padding: 20px;
+}
+
+/* --- Form Column --- */
+.form-column {
+  background-color: #ffffff;
+  padding: 40px;
+  border-radius: 10px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+  font-family: 'REM', sans-serif;
+}
+.form-column h1 {
+  font-size: 2.5rem;
+  margin-bottom: 10px;
+  color: #333;
+}
+.form-column p {
+  font-size: 1.1rem;
+  color: #666;
+  margin-bottom: 30px;
+}
+
+/* --- Form Fields --- */
+.input-group {
+  margin-bottom: 25px;
+}
+.input-group label {
+  display: block;
+  font-weight: bold;
+  margin-bottom: 8px;
+  color: #555;
+}
+.input-group input,
+.input-group textarea {
+  width: 100%;
+  padding: 12px 15px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  font-size: 1rem;
+  box-sizing: border-box;
+}
+.input-group input[type="file"] {
+  padding: 10px;
+}
+.disclaimer {
+  font-size: 0.9rem;
+  color: #888;
+  margin-top: 15px;
+  font-style: italic;
+}
+
+/* --- Info Column --- */
+.info-column {
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
+}
+
+/* --- Requirements & Benefits Boxes --- */
+.requirements-box,
+.benefits-box {
+  background-color: #f8f9fa;
+  padding: 30px;
+  border-radius: 10px;
+  border-left: 5px solid #32e0e0;
+}
+.requirements-box h2,
+.benefits-box h2 {
+  font-size: 1.5rem;
+  margin-top: 0;
+  margin-bottom: 20px;
+  color: #333;
+}
+.requirements-box ul,
+.benefits-box ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+.requirements-box li,
+.benefits-box li {
+  font-size: 1rem;
+  color: #555;
+  margin-bottom: 15px;
+  line-height: 1.5;
+}
+
+/* --- Popup Styles --- */
+.pop-up-container p {
+  font-size: 1.1rem;
+  line-height: 1.6;
+  margin-bottom: 20px;
+}
+.pop-up-container ul {
+  list-style: none;
+  padding: 0;
+  margin-bottom: 25px;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 20px;
+}
+.pop-up-container li {
+  background-color: rgb(191, 240, 237);
+  border-left: 5px solid #32e0e0;
+  padding: 15px 20px;
+  margin-bottom: 10px;
+  border-radius: 5px;
+  color: #343a40;
+  font-size: 1rem;
+  font-weight: 500;
+}

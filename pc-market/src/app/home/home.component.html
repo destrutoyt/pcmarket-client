@@ -1,8 +1,12 @@
 <h1>Welcome to PC Market</h1>
-<div class="container"> <!-- TODO: Add functionality to all the elements -->
+
+<!-- Search bar -->
+<div class="container">
     <input class="search-input" type="text" placeholder="Search Products" />
     <button class="search-button">Search</button>
 </div>
+
+<!-- Sort & filter -->
 <div class="container-child">
     <select class="sort-select">
         <option value="">Sort By</option>
@@ -18,6 +22,13 @@
         <option value="server">Server Category</option>
     </select>
 </div>
-<div class="container"> <!-- TODO: Add product listings -->
-    <!-- Server-side rendering will populate this section with product cards. Will add mock data later -->
+
+<!-- Product grid -->
+<div class="product-grid">
+    <div class="product-card" *ngFor="let product of products">
+        <img [src]="product.imageUrl" alt="{{ product.productName }}" />
+        <h3>{{ product.productName }}</h3>
+        <p>Sold by: {{ product.shopName }}</p>
+        <p class="price">${{ product.price }}</p>
+    </div>
 </div>

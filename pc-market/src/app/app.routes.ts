@@ -8,9 +8,11 @@ import { CartComponent } from './cart/cart.component';
 import { OrdersComponent } from './orders/orders.component';
 import { UserRegistrationComponent } from './user-registration/user-registration.component';
 import { SellerRegistrationComponent } from './seller-registration/seller-registration.component';
+import { ProductViewComponent } from './product-view/product-view.component';
 
 export const routes: Routes = [
   { path: '', component: HomeComponent },
+  { path: 'product/:id', component: ProductViewComponent }, // Dynamic route for product details
   { path: 'about', component: AboutUsComponent },
   { path: 'buyer', component: BuyerDashComponent },
   { path: 'seller', component: SellerDashComponent },
@@ -18,5 +20,5 @@ export const routes: Routes = [
   { path: 'cart', component: CartComponent },
   { path: 'orders', component: OrdersComponent },
   { path: 'register', component: UserRegistrationComponent },
-  { path: 'seller-register', component: SellerRegistrationComponent },
+  { path: 'seller-register', component: SellerRegistrationComponent }
 ];

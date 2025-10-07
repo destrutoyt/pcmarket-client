@@ -1,22 +1,24 @@
-import { Component, OnInit } from '@angular/core';
-import { ProductService, Product } from '../services/product.service';
-import { NgForOf } from "@angular/common";
+import { Component, OnInit, inject, signal, computed } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { RouterLink } from '@angular/router';
+import { ProductService } from '../services/product.service';
+import { Product } from '../models/product.model';
+
 @Component({
   selector: 'app-home',
-  imports: [NgForOf],
+  standalone: true,
+  imports: [CommonModule, RouterLink],
   templateUrl: './home.component.html',
-  styleUrls: ['./home.component.css']
+  styleUrls: ['./home.component.css'],
 })
 export class HomeComponent implements OnInit {
-  products: Product[] = []; // Array to hold products
+  private productService = inject(ProductService);
 
-  constructor(private productService: ProductService) { } // Inject ProductService
+  // Base signals from service
+  products = this.productService.products;
+  loading = this.productService.loading;
 
   ngOnInit(): void {
-    console.log("HomeComponent initialized");
-    // Fetch products on component initialization
-    this.productService.getProducts().subscribe((data: Product[]) => {
-      this.products = data; // Assign fetched products to the array
-    });
+    this.productService.fetchProducts();
   }
 }

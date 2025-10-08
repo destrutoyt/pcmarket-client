@@ -1,16 +1,33 @@
-import { Component, signal } from '@angular/core';
+import { Component, inject, signal } from '@angular/core';
 import { CommonModule } from '@angular/common'; // Needed for *ngIf/ngClass
+import { UserService } from '../services/user.service';
+import { FormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-user-registration',
-  imports: [CommonModule],
+  imports: [CommonModule, FormsModule],
   templateUrl: './user-registration.component.html',
   styleUrl: './user-registration.component.css'
 })
 export class UserRegistrationComponent {
+
+  private userService = inject(UserService);
   // true means show the Login form (slider is on the right)
   // false means show the Registration form (slider is on the left, default)
   public showLogin = signal(false);
+
+  newUser = signal({
+    first_name: '',
+    last_name: '',
+    username: '',
+    password_hash: '',
+    dob: '',
+    address_1: '',
+    address_2: '',
+    state_code: '',
+    zip_code: '',
+    country_code: ''
+  });
 
   // Method to toggle between forms
   toggleForm() {
@@ -19,8 +36,13 @@ export class UserRegistrationComponent {
 
   // Placeholder for authentication logic
   onRegister() {
-    console.log('Registration attempt.');
-    // TODO: Implement registration logic with Firebase/Backend
+    const userToCreate = {
+      ...this.newUser(),
+      account_created: new Date().toISOString()
+    }
+
+    this.userService.createUser(userToCreate);
+    console.log('Registering user:', userToCreate);
   }
 
   onLogin() {

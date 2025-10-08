@@ -48,4 +48,37 @@ export class UserService {
         this._loading.set(false);
       });
   }
+  /* Login method */
+  login(username: string, password: string) {
+    console.log('UserService login called', username);
+    this._loading.set(true);
+    this._error.set(null);
+
+    this.http.post<{ token: string }>(`${this.apiUrl}/login`, { username, password }).subscribe({
+      next: (res) => {
+        console.log('Login response', res);
+        if (res && res.token) {
+          localStorage.setItem('jwtToken', res.token);
+          console.log('Token stored in localStorage:', res.token);
+        }
+        this._loading.set(false);
+      },
+      error: (err) => {
+        console.error('Login error', err);
+        this._error.set('Invalid username or password');
+        this._loading.set(false);
+      },
+    });
+  }
+
+  /* Optional: get token */
+  getToken(): string | null {
+    return localStorage.getItem('jwtToken');
+  }
+
+  /* Optional: logout */
+  logout(): void {
+    localStorage.removeItem('jwtToken');
+    this._selectedUser.set(null);
+  }
 }

@@ -12,8 +12,6 @@ import { FormsModule } from '@angular/forms';
 export class UserRegistrationComponent {
 
   private userService = inject(UserService);
-  // true means show the Login form (slider is on the right)
-  // false means show the Registration form (slider is on the left, default)
   public showLogin = signal(false);
 
   newUser = signal({
@@ -27,6 +25,11 @@ export class UserRegistrationComponent {
     state_code: '',
     zip_code: '',
     country_code: ''
+  });
+
+  loginUser = signal({
+    username: '',
+    password_hash: ''
   });
 
   // Method to toggle between forms
@@ -47,6 +50,8 @@ export class UserRegistrationComponent {
 
   onLogin() {
     console.log('Login attempt.');
-    // TODO: Implement login logic
+    const { username, password_hash } = this.loginUser();
+
+    this.userService.login(username, password_hash);
   }
 }

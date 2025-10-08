@@ -1,18 +1,30 @@
-import { Component, inject, signal } from '@angular/core';
-import { CommonModule } from '@angular/common'; // Needed for *ngIf/ngClass
+import { Component, effect, inject, signal, OnInit } from '@angular/core';
+import { CommonModule } from '@angular/common';
 import { UserService } from '../services/user.service';
 import { FormsModule } from '@angular/forms';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-user-registration',
   imports: [CommonModule, FormsModule],
   templateUrl: './user-registration.component.html',
-  styleUrl: './user-registration.component.css'
+  styleUrls: ['./user-registration.component.css'], // fixed typo: styleUrl -> styleUrls
+  standalone: true,
 })
 export class UserRegistrationComponent {
-
   private userService = inject(UserService);
+  private router = inject(Router);
   public showLogin = signal(false);
+  private hasNavigated = false;
+
+  constructor() {
+    effect(() => {
+      if (this.userService.isLoggedIn() && !this.hasNavigated) {
+        this.hasNavigated = true;
+        this.router.navigate(['/profile']); // NgZone.run not needed anymore
+      }
+    });
+  }
 
   newUser = signal({
     first_name: '',
@@ -24,34 +36,34 @@ export class UserRegistrationComponent {
     address_2: '',
     state_code: '',
     zip_code: '',
-    country_code: ''
+    country_code: '',
   });
 
   loginUser = signal({
     username: '',
-    password_hash: ''
+    password_hash: '',
   });
 
-  // Method to toggle between forms
+  // Toggle between login and register forms
   toggleForm() {
-    this.showLogin.update(current => !current);
+    this.showLogin.update((current) => !current);
   }
 
-  // Placeholder for authentication logic
+  // Register a new user
   onRegister() {
     const userToCreate = {
       ...this.newUser(),
-      account_created: new Date().toISOString()
-    }
+      account_created: new Date().toISOString(),
+    };
 
     this.userService.createUser(userToCreate);
     console.log('Registering user:', userToCreate);
   }
 
+  // Login existing user
   onLogin() {
-    console.log('Login attempt.');
     const { username, password_hash } = this.loginUser();
-
     this.userService.login(username, password_hash);
+    // No router.navigate here; effect handles redirection
   }
 }

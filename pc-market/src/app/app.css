@@ -1,15 +1,200 @@
+/* ===== MAIN LAYOUT ===== */
 main {
-    padding: 0px 150px 0 150px;
+  padding: 100px 150px 0 150px; /* top padding for fixed navbar */
 }
+
+/* ===== LOGO ===== */
 .logo {
-    height: 3vh;
-    width: auto;
+  height: 3vh;
+  min-height: 24px;
+  width: auto;
 }
+
+/* ===== MAIN CONTENT ===== */
 .main-content {
-    text-align: center;
-    margin-bottom: 20px;
+  text-align: center;
+  margin-bottom: 20px;
 }
-.nav-link.active {
-  color: rgb(40, 119, 133); /* Your desired active color */
-  border-bottom: 2px solid rgb(40, 119, 133); /* Example: Add a border */
+
+/* ===== NAVBAR ===== */
+.navbar {
+  background-color: #9ff8ba;
+  padding: 1rem 0;
+  position: fixed; /* keep navbar at top */
+  top: 0;
+  left: 0;
+  width: 100%;
+  border-bottom: 1px solid transparent;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08);
+  z-index: 30;
+}
+
+.navbar::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  bottom: -2px;
+  width: 100%;
+  height: 4px;
+  background: linear-gradient(
+    90deg,
+    #ff004c,
+    #ff7b00,
+    #ffee00,
+    #fdbdff,
+    #00cfff,
+    #c58fff,
+    #ff004c
+  );
+  background-size: 200% 100%;
+  animation: colorSlide 8s linear infinite;
+  border-radius: 2px;
+}
+
+/* ===== NAVBAR FLEX ===== */
+.navbar-container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between; /* logo left, user right */
+  margin: 0;
+  padding: 0 150px;
+  list-style: none;
+  position: relative;
+}
+
+/* Logo container */
+.logo-container {
+  flex: 0 0 auto;
+}
+
+/* Center navigation links */
+.nav-links-center {
+  display: flex;
+  gap: 2.5rem;
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+.nav-links-center a {
+  font-size: 1.2rem;
+  text-transform: uppercase;
+  font-weight: 600;
+  text-decoration: none;
+  color: rgb(37, 37, 37);
+  transition: color 0.3s ease;
+}
+
+.nav-links-center a:hover,
+.nav-links-center a.active {
+  color: rgb(40, 119, 133);
+  border-bottom: 2px solid rgb(40, 119, 133);
+}
+
+/* ===== USER MENU (RIGHT) ===== */
+.user-menu {
+  flex: 0 0 auto;
+  margin-left: auto;
+  position: relative;
+  z-index: 20;
+}
+
+.user-button {
+  background: transparent;
+  border: none;
+  font-size: 1.2rem;
+  font-weight: 600;
+  border-radius: 9999px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  user-select: none;
+  color: rgb(37, 37, 37);
+  text-decoration: none;
+  transition: color 0.3s ease, background-color 0.3s ease;
+}
+
+.user-button:hover {
+  background-color: #e5e7eb;
+  color: #111827;
+}
+
+.arrow {
+  margin-left: 8px;
+  font-size: 0.75rem;
+  transition: transform 0.3s ease;
+}
+
+/* ===== DROPDOWN MENU ===== */
+.dropdown {
+  display: none;
+  position: absolute;
+  top: 130%;
+  right: 0;
+  background-color: white;
+  min-width: 180px;
+  box-shadow: 0 10px 15px rgba(0,0,0,0.1), 0 4px 6px rgba(0,0,0,0.05);
+  border-radius: 8px;
+  z-index: 100;
+  padding: 0;
+  list-style: none;
+  border: 1px solid #e5e7eb;
+  transform: translateY(10px);
+  opacity: 0;
+  transition: opacity 0.3s cubic-bezier(0.17,0.67,0.83,0.67),
+              transform 0.3s cubic-bezier(0.17,0.67,0.83,0.67);
+}
+
+.dropdown.show {
+  display: block;
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Dropdown links */
+.dropdown li a {
+  display: block;
+  padding: 12px 16px;
+  text-decoration: none;
+  color: #1f2937;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background-color 0.2s, color 0.2s;
+}
+
+.dropdown li:first-child a {
+  border-top-left-radius: 8px;
+  border-top-right-radius: 8px;
+}
+
+.dropdown li:last-child a {
+  border-bottom-left-radius: 8px;
+  border-bottom-right-radius: 8px;
+}
+
+.dropdown li a:hover {
+  background-color: #eff6ff; /* light blue */
+  color: #1e3a8a; /* deep blue */
+}
+
+/* ===== LOGIN LINK STYLING ===== */
+li > a.nav-link {
+  font-size: 1.2rem;
+  text-transform: uppercase;
+  font-weight: 600;
+  text-decoration: none;
+  color: rgb(37, 37, 37);
+  transition: color 0.3s ease;
+}
+
+li > a.nav-link:hover,
+li > a.nav-link.active {
+  color: rgb(40, 119, 133);
+  border-bottom: 2px solid rgb(40, 119, 133);
+}
+
+/* ===== ANIMATION ===== */
+@keyframes colorSlide {
+  from { background-position: 0% 50%; }
+  to { background-position: 200% 50%; }
 }

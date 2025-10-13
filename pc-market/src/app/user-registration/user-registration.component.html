@@ -3,39 +3,53 @@
   <div class="container auth-container">
     
     <!-- 1. Form Container - REGISTRATION (Left side, initially covered) -->
-    <div class="container-child form-panel registration-panel" [ngClass]="{'active': !showLogin()}">
+    <div
+      class="container-child form-panel registration-panel"
+      [ngClass]="{ active: !showLogin() }">
       <h2>Create Your Account</h2>
+
       <form (ngSubmit)="onRegister()">
+
         <div class="input-group">
-          <input type="text" placeholder="First Name" required>
+          <input type="text" placeholder="First Name" [(ngModel)]="newUser().first_name" name="first_name" required />
         </div>
+
         <div class="input-group">
-          <input type="text" placeholder="Last Name" required>
+          <input type="text" placeholder="Last Name" [(ngModel)]="newUser().last_name" name="last_name" required />
         </div>
+
         <div class="input-group">
-          <input type="email" placeholder="Username" required>
+          <input type="email" placeholder="Username" [(ngModel)]="newUser().username" name="username" required />
         </div>
+
         <div class="input-group">
-          <input type="password" placeholder="Password (min. 8 characters)" required minlength="8">
+          <input type="password" placeholder="Password (min. 8 characters)" [(ngModel)]="newUser().password_hash" name="password_hash" required [minlength]="8" />
         </div>
+
         <div class="input-group">
-          <input type="text" placeholder="Date of Birth (DD/MM/YYYY)" required pattern="\d{2}/\d{2}/\d{4}">
+          <input type="text" placeholder="Date of Birth (YYYY-MM-DD)" [(ngModel)]="newUser().dob" name="dob" required />
         </div>
+
         <div class="input-group">
-          <input type="text" placeholder="Address" required>
+          <input type="text" placeholder="Address" [(ngModel)]="newUser().address_1" name="address_1" required />
         </div>
+
         <div class="input-group">
-          <input type="text" placeholder="Apt/Suite (optional)">
+          <input type="text" placeholder="Apt/Suite (optional)" [(ngModel)]="newUser().address_2" name="address_2" />
         </div>
+
         <div class="input-group">
-          <input type="text" placeholder="Country" required>
+          <input type="text" placeholder="Country Code (Two Letters)" [(ngModel)]="newUser().country_code" name="country_code" required [maxlength]="2"/>
         </div>
+
         <div class="input-group">
-          <input type="text" placeholder="State" required>
+          <input type="text" placeholder="State" [(ngModel)]="newUser().state_code" name="state_code" required [maxlength]="2"/>
         </div>
+
         <div class="input-group">
-          <input type="text" placeholder="Zip Code" required pattern="\d{5}">
+          <input type="text" placeholder="Zip Code" [(ngModel)]="newUser().zip_code" name="zip_code" required pattern="\d{5}" [maxlength]="5"/>
         </div>
+
         <button class="cta-button auth-button" type="submit">Register</button>
       </form>
     </div>
@@ -45,10 +59,10 @@
       <h2>Welcome Back!</h2>
       <form (ngSubmit)="onLogin()">
         <div class="input-group">
-          <input type="email" placeholder="Email Address" required>
+          <input type="text" placeholder="Username" [(ngModel)]="loginUser().username" name="username" required>
         </div>
         <div class="input-group">
-          <input type="password" placeholder="Password" required>
+          <input type="password" placeholder="Password" [(ngModel)]="loginUser().password_hash" name="password_hash" required>
         </div>
         <a href="#" class="forgot-password">Forgot Password?</a>
         <button class="cta-button auth-button" type="submit">LOG IN</button>

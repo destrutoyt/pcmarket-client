@@ -1,17 +1,39 @@
 <header>
   <nav class="navbar">
-    <ul>
-      <li><a href="/"><img class="logo" src="/logos/app-logo.svg" alt="PC Market Logo"></a></li>
-      <li class="nav-links-center">
+    <ul class="navbar-container">
+      <!-- Left: Logo -->
+      <li class="logo-container">
+        <a href="/"><img class="logo" src="/logos/app-logo.svg" alt="PC Market Logo" /></a>
+      </li>
+
+      <!-- Center: Navigation Links -->
+      <div class="nav-links-center">
         <a class="nav-link" routerLink="/about" routerLinkActive="active">About Us</a>
         <a class="nav-link" routerLink="/seller-register" routerLinkActive="active">Become a Seller</a>
-        <a class="nav-link" routerLink="/" routerLinkActive="active">Contact</a>
-        <a class="nav-link" routerLink="/register" routerLinkActive="active">Sign In / Log In</a>
+        <a class="nav-link" style="cursor:none;" routerLink="/" routerLinkActive="active">Contact</a>
+      </div>
+
+      <!-- Right: User Menu -->
+      <li class="user-menu" *ngIf="isLoggedIn(); else loginLink">
+        <button class="user-button" (click)="toggleMenu()">
+          Welcome {{ username() }}! <span class="arrow">▼</span>
+        </button>
+        <ul class="dropdown" [class.show]="menuOpen">
+          <li><a routerLink="/profile">Profile</a></li>
+          <li><a routerLink="/orders">Orders</a></li>
+          <li><a (click)="signOut()">Sign Out</a></li>
+        </ul>
       </li>
+
+      <ng-template #loginLink>
+        <li>
+          <a class="nav-link" routerLink="/register" routerLinkActive="active">Sign In / Log In</a>
+        </li>
+      </ng-template>
     </ul>
   </nav>
 </header>
 
-<main class="main-content">
+<main>
   <router-outlet></router-outlet>
 </main>

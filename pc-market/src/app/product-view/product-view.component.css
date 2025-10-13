@@ -1,0 +1,130 @@
+/* --- Product Page Layout (Amazon-Style Full Width) --- */
+
+/* Base container for all content */
+.product-view {
+  display: flex;
+  flex-direction: column; /* Default: Stack vertically on mobile */
+  gap: 20px; /* Reduced gap for mobile */
+  margin: 0; 
+  padding: 20px; 
+  background-color: #ffffff;
+  box-shadow: none;
+}
+
+/* Styling for the Product Image */
+.product-view img {
+  width: 100%;
+  max-height: 500px; 
+  object-fit: contain;
+  border-radius: 8px;
+}
+
+/* Container for all text details on the right */
+.product-info {
+  display: flex;
+  flex-direction: column;
+  padding: 0;
+}
+
+/* --- Typography and Stacking Order (Reduced Spacing) --- */
+
+/* Seller (Order 1: Highest priority, ensuring it's on top) */
+.product-info p:nth-child(4) { 
+    order: 1; 
+    font-size: 1.1rem;
+    color: #007bff;
+    font-weight: 500;
+    margin-top: 0;
+    margin-bottom: 5px; /* Reduced space below seller name */
+}
+
+/* Product Name (H2) - Sits right below the Seller */
+.product-info h2 {
+  font-size: 2.5rem; /* Bigger font size for prominence */
+  color: #222;
+  margin-top: 0;
+  margin-bottom: 5px; /* Reduced space below product name */
+  order: 2; 
+  line-height: 1.2;
+}
+
+/* Price (Order 3: Sits right below Product Name, prominent size) */
+.product-info p:nth-child(5) { 
+    order: 3; 
+    font-size: 2.2rem; /* Noticeably larger price */
+    color: #04abb1; /* Classic e-commerce price red/orange */
+    font-weight: bold;
+    margin-bottom: 15px; /* Small space before category/description */
+}
+
+/* Category */
+.product-info p:nth-child(3) { 
+    order: 4; 
+    font-size: 1rem;
+    color: #777;
+    margin-bottom: 20px; /* Added separator space */
+}
+
+/* Description */
+.product-info p:nth-child(2) { 
+    font-size: 1.1rem;
+    line-height: 1.6;
+    margin-top: 0;
+    margin-bottom: 25px;
+    color: #555;
+    order: 5; 
+}
+
+/* --- Button Style --- */
+.product-info button {
+  background-color: #f8f8f8;
+  color: #333;
+  border: 1px solid #ccc;
+  padding: 15px;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+  margin-top: 20px;
+  order: 6; 
+  align-self: center;
+  font-size: 1rem;
+}
+.product-info .add-to-cart {
+  background-color: #04b169;
+  color: white;
+  border: none;
+  font-size: 1rem;
+  padding: 15px;
+}
+.product-info .add-to-cart:hover {
+  background-color: #039f5a;
+}
+.product-info button:hover {
+  background-color: #e0e0e0;
+}
+
+/* ---------------------------------------------------- */
+/* --- DESKTOP LAYOUT (CSS GRID) --- */
+/* ---------------------------------------------------- */
+
+@media (min-width: 992px) {
+  .product-view {
+    display: grid;
+    /* Stronger image presence: 3fr for image, 3fr for details */
+    grid-template-columns: 3fr 3fr; 
+    gap: 40px;
+    padding: 60px 40px; 
+    /* Reintroduce styling elements for the constrained content area */
+    max-width: 1200vh;
+    margin: 40px auto; 
+    border-radius: 12px;
+    box-shadow: 0 8px 16px rgba(9, 138, 110, 0.144);
+  }
+  .product-view img {
+    height: 100%; 
+    max-height: none; 
+  }
+  .product-info {
+    padding-left: 0;
+  }
+}

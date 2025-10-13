@@ -3,7 +3,7 @@ export interface User {
   firstName: string;
   lastName: string;
   username: string;
-  passwordHash: string;
+  passwordHash?: string;
   dob: string;
   accountCreated: string;
   address1: string;

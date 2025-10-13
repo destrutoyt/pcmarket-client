@@ -1,1 +1,98 @@
-<p>user-profile works!</p>
+@if (selectedUser(); as user) {
+  <div class="profile-page">
+    <div class="profile-card">
+      <h2 class="profile-title">User Profile</h2>
+
+      @if (message()) {
+        <div class="feedback-box">
+          <span class="feedback-icon">ℹ️</span>
+          <span class="feedback-text">{{ message() }}</span>
+        </div>
+      }
+
+      <!-- Account Information -->
+      <section>
+        <h3 class="section-title">Account Information</h3>
+        <div class="section-divider"></div>
+
+        <div class="form-grid">
+          <div class="form-group">
+            <label>Username</label>
+            <input type="text" [ngModel]="user.username" readonly />
+          </div>
+
+          <div class="form-group">
+            <label>Date of Birth</label>
+            <input type="date" [ngModel]="user.dob" readonly />
+          </div>
+
+          <div class="form-group">
+            <label>Account Created</label>
+            <input
+              type="text"
+              [ngModel]="user.accountCreated | date: 'medium'"
+              readonly
+            />
+          </div>
+        </div>
+      </section>
+
+      <!-- Profile Details -->
+      <section>
+        <h3 class="section-title">Profile Details</h3>
+        <div class="section-divider"></div>
+
+        <div class="form-grid">
+          <div class="form-group">
+            <label>First Name</label>
+            <input type="text" [ngModel]="user.firstName" />
+          </div>
+
+          <div class="form-group">
+            <label>Last Name</label>
+            <input type="text" [ngModel]="user.lastName" />
+          </div>
+
+          <div class="form-group">
+            <label>Address 1</label>
+            <input type="text" [ngModel]="user.address1" />
+          </div>
+
+          <div class="form-group">
+            <label>Address 2</label>
+            <input type="text" [ngModel]="user.address2" />
+          </div>
+
+          <div class="form-group">
+            <label>State</label>
+            <input type="text" [ngModel]="user.stateCode" />
+          </div>
+
+          <div class="form-group">
+            <label>ZIP Code</label>
+            <input type="text" [ngModel]="user.zipCode" />
+          </div>
+
+          <div class="form-group">
+            <label>Country</label>
+            <input type="text" [ngModel]="user.countryCode" />
+          </div>
+        </div>
+      </section>
+
+      <!-- Action Buttons -->
+      <div class="action-row">
+        <div class="button-group">
+          <button class="save-button" disabled>Save Changes</button>
+          <button class="orders-button" (click)="goToOrders()">View Orders</button>
+        </div>
+        <button class="delete-button" (click)="deleteAccount()">Delete Account</button>
+      </div>
+    </div>
+  </div>
+} @else {
+  <div class="loading">
+    <div class="spinner"></div>
+    <p>Loading user data...</p>
+  </div>
+}

@@ -34,12 +34,13 @@ export class UserService {
     const token = this.getToken();
     const username = this.getUsername();
     if (token && username) {
-      setTimeout(() => {
+      Promise.resolve().then(() => {
         this._isLoggedIn.set(true);
         this._username.set(username);
       });
     }
   }
+
   // == Methods ==
 
   /* Create a new user */

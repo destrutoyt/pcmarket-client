@@ -14,9 +14,9 @@
       </div>
 
       <!-- Right: User Menu -->
-      <li class="user-menu" *ngIf="isLoggedIn; else loginLink">
+      <li class="user-menu" *ngIf="isLoggedIn(); else loginLink">
         <button class="user-button" (click)="toggleMenu()">
-          Welcome {{ username }}! <span class="arrow">▼</span>
+          Welcome {{ username() }}! <span class="arrow">▼</span>
         </button>
         <ul class="dropdown" [class.show]="menuOpen">
           <li><a routerLink="/profile">Profile</a></li>

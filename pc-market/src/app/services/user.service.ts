@@ -75,7 +75,9 @@ export class UserService {
         this._loading.set(false);
       });
   }
-
+  deleteUser(id: number) {
+    return this.http.delete(`${this.apiUrl}/${id}`);
+  }
   /* Login method */
   login(username: string, password: string) {
     console.log('UserService login called', username);
@@ -141,12 +143,14 @@ export class UserService {
   }
 
   getUserId(): number | null {
-    console.log("Getting user ID:", this._id());
+    console.log('Getting user ID:', this._id());
     return this._id();
   }
 
-  getSelectedUser(id : string):Observable<User> {
-    console.warn('getSelectedUser has a hardcoded user ID, needs to be fixed. ID is returned using getUserId(), so find a way to pass it here');
+  getSelectedUser(id: string): Observable<User> {
+    console.warn(
+      'getSelectedUser has a hardcoded user ID, needs to be fixed. ID is returned using getUserId(), so find a way to pass it here',
+    );
     return this.http.get<User>(`${this.apiUrl}/1`); // TODO: replace hardcoded id
   }
 }

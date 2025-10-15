@@ -5,6 +5,7 @@ import { CommonModule } from '@angular/common';
 import { HttpClientModule } from '@angular/common/http';
 import { UserService } from '../services/user.service';
 import { User } from '../models/user.model';
+import { OrdersService } from '../services/orders.service';
 
 @Component({
   selector: 'app-user-profile',
@@ -59,7 +60,12 @@ export class UserProfileComponent {
     if (!confirm('Are you sure you want to delete your account? This action cannot be undone.'))
       return;
 
-    const user = this.selectedUser();
-    if (user) console.log('Delete user', user.id);
+    this.userService.deleteUser(this.selectedUser()?.id || 0).subscribe({
+      next: () => {
+        this.userService.logout();
+        this.router.navigate(['/register']);
+      },
+      error: () => this.message.set('Failed to delete account. Please try again later.'),
+    });
   }
 }

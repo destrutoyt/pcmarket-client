@@ -201,6 +201,23 @@ input[readonly] {
   margin-right: 0.5rem;
 }
 
+/* --- Edit Button --- */
+.edit-button {
+  padding: 0.5rem 1rem;
+  border: none;
+  border-radius: 999px;
+  background-color: #6c5ce7;
+  color: white;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.edit-button:hover {
+  background-color: #4e3ac1;
+  transform: scale(1.05);
+}
+
 /* --- Loading --- */
 .loading {
   display: flex;

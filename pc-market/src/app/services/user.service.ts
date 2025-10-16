@@ -75,6 +75,9 @@ export class UserService {
         this._loading.set(false);
       });
   }
+  updateUser(userId: number, changes: Partial<User>) {
+    return this.http.patch<User>(`${this.apiUrl}/${userId}`, changes);
+  }
   deleteUser(id: number) {
     return this.http.delete(`${this.apiUrl}/${id}`);
   }

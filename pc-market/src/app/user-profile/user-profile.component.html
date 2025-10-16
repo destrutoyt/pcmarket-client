@@ -1,4 +1,4 @@
-@if (selectedUser(); as user) {
+@if (editableUser(); as user) {
   <div class="profile-page">
     <div class="profile-card">
       <h2 class="profile-title">User Profile</h2>
@@ -10,72 +10,63 @@
         </div>
       }
 
-      <!-- Account Information -->
+      <!-- Account Information (readonly) -->
       <section>
         <h3 class="section-title">Account Information</h3>
         <div class="section-divider"></div>
-
         <div class="form-grid">
           <div class="form-group">
             <label>Username</label>
-            <input type="text" [ngModel]="user.username" readonly />
+            <input type="text" [(ngModel)]="user.username" readonly />
           </div>
-
           <div class="form-group">
             <label>Date of Birth</label>
-            <input type="date" [ngModel]="user.dob" readonly />
+            <input type="date" [(ngModel)]="user.dob" readonly />
           </div>
-
           <div class="form-group">
             <label>Account Created</label>
-            <input
-              type="text"
-              [ngModel]="user.accountCreated | date: 'medium'"
-              readonly
-            />
+            <input type="text" [value]="user.accountCreated | date:'medium'" readonly />
           </div>
         </div>
       </section>
 
-      <!-- Profile Details -->
+      <!-- Profile Details (editable only if isEditing) -->
       <section>
-        <h3 class="section-title">Profile Details</h3>
+        <div style="display:flex; justify-content: space-between; align-items:center;">
+          <h3 class="section-title">Profile Details</h3>
+          <button class="edit-button" (click)="toggleEdit()">
+            {{ isEditing() ? 'Cancel' : 'Edit' }}
+          </button>
+        </div>
         <div class="section-divider"></div>
-
         <div class="form-grid">
           <div class="form-group">
             <label>First Name</label>
-            <input type="text" [ngModel]="user.firstName" />
+            <input type="text" [ngModel]="user.firstName" (ngModelChange)="updateField('firstName',$event)" [readonly]="!isEditing()" />
           </div>
-
           <div class="form-group">
             <label>Last Name</label>
-            <input type="text" [ngModel]="user.lastName" />
+            <input type="text" [ngModel]="user.lastName" (ngModelChange)="updateField('lastName',$event)" [readonly]="!isEditing()" />
           </div>
-
           <div class="form-group">
             <label>Address 1</label>
-            <input type="text" [ngModel]="user.address1" />
+            <input type="text" [ngModel]="user.address1" (ngModelChange)="updateField('address1',$event)" [readonly]="!isEditing()" />
           </div>
-
           <div class="form-group">
             <label>Address 2</label>
-            <input type="text" [ngModel]="user.address2" />
+            <input type="text" [ngModel]="user.address2" (ngModelChange)="updateField('address2',$event)" [readonly]="!isEditing()" />
           </div>
-
           <div class="form-group">
             <label>State</label>
-            <input type="text" [ngModel]="user.stateCode" />
+            <input type="text" [ngModel]="user.stateCode" (ngModelChange)="updateField('stateCode',$event)" [readonly]="!isEditing()" [maxlength]="2" />
           </div>
-
           <div class="form-group">
             <label>ZIP Code</label>
-            <input type="text" [ngModel]="user.zipCode" />
+            <input type="text" [ngModel]="user.zipCode" (ngModelChange)="updateField('zipCode',$event)" [readonly]="!isEditing()" [maxlength]="5"/>
           </div>
-
           <div class="form-group">
             <label>Country</label>
-            <input type="text" [ngModel]="user.countryCode" />
+            <input type="text" [ngModel]="user.countryCode" (ngModelChange)="updateField('countryCode',$event)" [readonly]="!isEditing()" [maxlength]="2" />
           </div>
         </div>
       </section>
@@ -83,14 +74,17 @@
       <!-- Action Buttons -->
       <div class="action-row">
         <div class="button-group">
-          <button class="save-button" disabled>Save Changes</button>
+          <button class="save-button" [class.active]="isChanged()" [disabled]="!isChanged()" (click)="updateUser()">
+            Save Changes
+          </button>
           <button class="orders-button" (click)="goToOrders()">View Orders</button>
         </div>
         <button class="delete-button" (click)="deleteAccount()">Delete Account</button>
       </div>
     </div>
   </div>
-} @else {
+}
+@else {
   <div class="loading">
     <div class="spinner"></div>
     <p>Loading user data...</p>

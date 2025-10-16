@@ -30,7 +30,7 @@ export class OrdersService {
     timer(1000)
       .pipe(
         switchMap(() =>
-          this.http.get<Orders[]>(`${this.apiUrl}/user/1`).pipe(
+          this.http.get<Orders[]>(`${this.apiUrl}/user/${this.userService.getUserId()}`).pipe(
             catchError((err) => {
               console.error('Error fetching orders', err);
               this._error.set('Failed to load orders');
@@ -39,7 +39,7 @@ export class OrdersService {
             })
           )
         ),
-        takeUntilDestroyed(this.destroyRef) // 👈 cancels when injector is gone
+        takeUntilDestroyed(this.destroyRef)
       )
       .subscribe((data) => {
         this._orders.set(data);

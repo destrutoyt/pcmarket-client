@@ -80,7 +80,6 @@ export class UserService {
   }
   /* Login method */
   login(username: string, password: string) {
-    console.log('UserService login called', username);
     this._loading.set(true);
     this._error.set(null);
 
@@ -88,13 +87,11 @@ export class UserService {
       .post<{ token: string; userId: number }>(`${this.apiUrl}/login`, { username, password })
       .subscribe({
         next: (res) => {
-          console.log('Login response', res);
           if (res && res.token) {
             if (typeof localStorage !== 'undefined') {
               localStorage.setItem('jwtToken', res.token);
               localStorage.setItem('username', username); // store as plain string
               localStorage.setItem('userId', res.userId.toString()); // store user ID as string
-              console.log('Token stored in localStorage:', res.token);
 
               // update signals
               this._isLoggedIn.set(true);
@@ -143,14 +140,10 @@ export class UserService {
   }
 
   getUserId(): number | null {
-    console.log('Getting user ID:', this._id());
     return this._id();
   }
 
   getSelectedUser(id: string): Observable<User> {
-    console.warn(
-      'getSelectedUser has a hardcoded user ID, needs to be fixed. ID is returned using getUserId(), so find a way to pass it here',
-    );
-    return this.http.get<User>(`${this.apiUrl}/1`); // TODO: replace hardcoded id
+    return this.http.get<User>(`${this.apiUrl}/${id}`);
   }
 }

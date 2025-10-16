@@ -12,7 +12,7 @@
         <div class="order-card">
           <div class="order-header">
             <h3>Order #{{ order.orderId }}</h3>
-            <button class="view-button">View Order</button>
+            <!-- <button class="view-button">View Order</button> Not needed since all info is shown on each order, but will expand it later -->
           </div>
 
           <p><strong>Date:</strong> {{ order.orderDate | date: 'medium' }}</p>

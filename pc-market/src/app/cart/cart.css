@@ -1,0 +1,236 @@
+/* === NEW LAYOUT WRAPPER === */
+.cart-layout {
+  display: flex;
+  gap: 2rem;
+  align-items: flex-start;
+}
+
+.cart-box {
+  background: #fff;
+  border-radius: 12px;
+  padding: 1.5rem;
+  box-shadow: 0 5px 15px rgba(0,0,0,0.08);
+}
+
+.left-box {
+  flex: 2;
+  max-height: 84vh;   /* choose height you want */
+  overflow-y: auto;
+  padding-right: 0.5rem; /* prevents cut-off on scrollbar */
+}
+
+.right-box {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+/* === MAIN CART CONTAINER === */
+.cart-container {
+  max-width: 1200px;
+  margin: 50px auto 50px auto;
+  padding: 2rem;
+  border: 3px solid transparent;
+  background-image: linear-gradient(white, white),
+    linear-gradient(120deg, #87f8cd, #892fff);
+  background-origin: border-box;
+  background-clip: padding-box, border-box;
+  border-radius: 12px;
+  box-shadow: 0 10px 20px rgba(161, 153, 230, 0.479);
+  font-family: 'REM', sans-serif;
+}
+
+/* HEADERS */
+h1 {
+  text-align: center;
+  margin-bottom: 2rem;
+  font-size: 2rem;
+  color: #264653;
+}
+h2 {
+  margin-bottom: 1rem;
+  color: #2a9d8f;
+  font-size: 1.4rem;
+  border-bottom: 2px solid #e5e7eb;
+  padding-bottom: 0.5rem;
+}
+
+/* FEEDBACK BOX */
+.feedback-box {
+  display: flex;
+  align-items: center;
+  background-color: #eaf8ff;
+  border: 1px solid #b5e0ff;
+  padding: 0.75rem 1rem;
+  border-radius: 8px;
+  margin-bottom: 1.5rem;
+}
+.feedback-icon {
+  margin-right: 0.5rem;
+}
+
+/* CART PRODUCTS */
+.cart-products ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+.cart-product {
+  display: flex;
+  justify-content: flex-start;
+  gap: 1rem;
+  align-items: center;
+  padding: 1rem 0;
+  border-bottom: 1px solid #e5e7eb;
+  transition: background 0.2s;
+}
+.cart-product:hover {
+  background-color: rgba(220, 231, 208, 0.301);
+}
+.remove-item {
+  margin-left: auto;
+  color: red;
+  cursor: pointer;
+  font-weight: 600;
+  text-decoration: underline;
+  transition: color 0.3s;
+}
+.remove-item:hover {
+  color: darkred;
+}
+.product-info p {
+  margin: 0.2rem 0;
+}
+
+.product-image-placeholder {
+  width: 120px;
+  height: 120px;
+  background-color: #f0f0f0;
+  border-radius: 8px;
+  margin-right: 1rem;
+  overflow: hidden;              /* lets the img stay inside */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.product-image-placeholder img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;             /* crop nicely without distortion */
+  display: block;
+}
+.centered-title {
+  text-align: center;
+}
+/* TOTAL AMOUNT */
+.total-amount {
+  text-align: center;
+}
+.total-amount h2 span {
+  color: green;
+  font-weight: bold;
+}
+
+/* FORMS (SHIPPING & CARD) */
+.form-group {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 1rem;
+}
+.form-group label {
+  font-weight: 600;
+  margin-bottom: 0.25rem;
+  color: #264653;
+}
+.form-group input {
+  padding: 0.5rem 1rem;
+  border-radius: 8px;
+  border: 1px solid #ccc;
+  font-size: 1rem;
+  transition: border 0.3s, box-shadow 0.3s;
+}
+.form-group input:focus {
+  border-color: #2a9d8f;
+  outline: none;
+  box-shadow: 0 0 5px rgba(42, 157, 143, 0.3);
+}
+.form-inline {
+  display: flex;
+  gap: 1rem;
+}
+
+/* SUBMIT BUTTON */
+.submit-order {
+  margin-top: 2rem;
+  padding: 1rem;
+  width: 100%;
+  font-size: 1.2rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  background: linear-gradient(90deg, #ff5f6d, #ffc371, #ff9a9e, #f6d365);
+  background-size: 200% 100%;
+  color: white;
+  border: none;
+  border-radius: 12px;
+  cursor: pointer;
+  transition: transform 0.3s, filter 0.3s, background-position 0.5s;
+  animation: gradientShift 4s ease infinite;
+}
+.submit-order:hover {
+  transform: scale(1.05);
+  filter: brightness(1.1);
+}
+@keyframes gradientShift {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+/* LOADING */
+.loading {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 60vh;
+  color: #555;
+}
+.spinner {
+  width: 36px;
+  height: 36px;
+  border: 4px solid #ddd;
+  border-top-color: #892fff;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+  margin-bottom: 1rem;
+}
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+/* RESPONSIVE */
+@media (max-width: 768px) {
+  .cart-layout {
+    flex-direction: column;
+  }
+  .cart-product {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+}
+
+/* CUSTOM SCROLLBAR FOR LEFT BOX */
+.left-box::-webkit-scrollbar {
+  width: 8px;
+}
+
+.left-box::-webkit-scrollbar-thumb {
+  background: #ccc;
+  border-radius: 4px;
+}
+
+.left-box::-webkit-scrollbar-thumb:hover {
+  background: #aaa;
+}

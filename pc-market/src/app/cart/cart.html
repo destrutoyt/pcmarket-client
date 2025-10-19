@@ -1,1 +1,113 @@
-<p>cart works!</p>
+@if(cartItems) {
+  <div class="cart-container">
+    <h1>Your Cart</h1>
+
+    @if(message()) {
+      <div class="feedback-box">
+        <span class="feedback-icon">ℹ️</span>
+        <span class="feedback-text">{{ message() }}</span>
+      </div>
+    }
+
+    <div class="cart-layout">
+      
+      <!-- LEFT CONTAINER: PRODUCTS -->
+      <div class="cart-box left-box">
+        <section class="cart-products">
+          <h2>Products</h2>
+          <ul>
+            @for(item of cartItems; track item.name) {
+              <li class="cart-product">
+
+                <!-- IMAGE PLACEHOLDER ADDED -->
+                <div class="product-image-placeholder">
+                  <img src="placeholder-img.png" alt="Product Image" />
+                </div>
+
+                <div class="product-info">
+                  <p class="product-name">{{ item.name }}</p>
+                  <p class="product-seller">Sold by: {{ item.seller }}</p>
+                  <p class="product-price">${{ item.price }}</p>
+                  <p class="product-quantity">Quantity: {{ item.quantity }}</p>
+                </div>
+
+                <a class="remove-item" (click)="removeItem(item)">Remove</a>
+              </li>
+            }
+          </ul>
+        </section>
+      </div>
+
+      <!-- RIGHT CONTAINER: TOTAL + SHIPPING + PAYMENT + SUBMIT -->
+      <div class="cart-box right-box">
+        
+        <section class="total-amount">
+          <h2>Total Amount: <span>${{ totalPrice() }}</span></h2>
+        </section>
+
+        <section class="shipping-address">
+          <!-- CENTERED TITLE -->
+          <h2 class="centered-title">Shipping Address</h2>
+          <div class="form-group">
+            <label>Full Name</label>
+            <input type="text" value="{{ shippingAddress.fullName }}" required />
+          </div>
+          <div class="form-group">
+            <label>Address</label>
+            <input type="text" value="{{ shippingAddress.address }}" required />
+          </div>
+          <div class="form-group">
+            <label>City</label>
+            <input type="text" value="{{ shippingAddress.city }}" required />
+          </div>
+          <div class="form-group">
+            <label>Postal Code</label>
+            <input type="text" value="{{ shippingAddress.postalCode }}" required maxlength="10" />
+          </div>
+          <div class="form-group">
+            <label>Country</label>
+            <input type="text" value="{{ shippingAddress.country }}" required maxlength="50" />
+          </div>
+        </section>
+
+        <section class="card-details">
+          <!-- CENTERED TITLE -->
+          <h2 class="centered-title">Payment Details</h2>
+          <div class="form-group">
+            <label>Cardholder Name</label>
+            <input type="text" placeholder="John Doe" required maxlength="50" />
+          </div>
+          <div class="form-group">
+            <label>Card Number</label>
+            <input type="text" placeholder="**** **** **** 1234" required maxlength="19" />
+          </div>
+          <div class="form-inline">
+            <div class="form-group">
+              <label>Expiry Date</label>
+              <input type="text" placeholder="MM/YY" required maxlength="5" />
+            </div>
+            <div class="form-group">
+              <label>CVV</label>
+              <input type="text" placeholder="123" required maxlength="4" />
+            </div>
+          </div>
+        </section>
+          <p style="padding: 0; margin: 0;"><b>NOTE:</b> This is a demo payment form. Do not enter real card details.</p>
+
+        @if(cartItems.length === 0) {
+          <p class="empty-cart-message">Your cart is empty. Add some products to proceed.</p>
+        }
+        @else {
+          <button class="submit-order" (click)="submitOrder()">SUBMIT ORDER</button>
+        }
+      </div>
+
+    </div>
+  </div>
+}
+@else {
+  <div class="loading">
+    <div class="spinner"></div>
+    <p>Loading cart data...</p>
+  </div>
+}

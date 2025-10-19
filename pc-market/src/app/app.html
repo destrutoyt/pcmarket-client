@@ -3,14 +3,14 @@
     <ul class="navbar-container">
       <!-- Left: Logo -->
       <li class="logo-container">
-        <a href="/"><img class="logo" src="/logos/app-logo.svg" alt="PC Market Logo" /></a>
+        <a routerLink="/"><img class="logo" src="/logos/app-logo.svg" alt="PC Market Logo" /></a>
       </li>
 
       <!-- Center: Navigation Links -->
       <div class="nav-links-center">
         <a class="nav-link" routerLink="/about" routerLinkActive="active">About Us</a>
         <a class="nav-link" routerLink="/seller-register" routerLinkActive="active">Become a Seller</a>
-        <a class="nav-link" style="cursor:none;" routerLink="/" routerLinkActive="active">Contact</a>
+        <a class="nav-link" style="cursor: none" routerLink="/" routerLinkActive="active">Contact</a>
       </div>
 
       <!-- Right: User Menu -->
@@ -18,11 +18,14 @@
         <button class="user-button" (click)="toggleMenu()">
           Welcome {{ username() }}! <span class="arrow">▼</span>
         </button>
-        <ul class="dropdown" [class.show]="menuOpen">
+        <ul class="dropdown" [class.show]="menuOpen" (mouseleave)="closeMenu()">
           <li><a routerLink="/profile">Profile</a></li>
           <li><a routerLink="/orders">Orders</a></li>
           <li><a (click)="signOut()">Sign Out</a></li>
         </ul>
+        <a routerLink="/cart"
+          ><img class="cart-logo" src="/logos/cart-logo.svg" alt="Cart Logo"
+        /></a>
       </li>
 
       <ng-template #loginLink>

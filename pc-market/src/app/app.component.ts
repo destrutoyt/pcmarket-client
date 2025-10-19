@@ -22,6 +22,9 @@ export class AppComponent {
   toggleMenu() {
     this.menuOpen = !this.menuOpen;
   }
+  closeMenu() {
+    this.menuOpen = false;
+  }
   signOut() {
     this.userService.logout();
     this.router.navigate(['/']);

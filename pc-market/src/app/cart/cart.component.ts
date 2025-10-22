@@ -28,14 +28,14 @@ export class CartComponent {
     if (cachedUser) {
       this.setShippingFromUser(cachedUser);
     } else {
-      console.warn('No cached user, fetching from API...');
+      console.warn('No cached user. Log out and log in again to load shipping information.');
       const id = this.userService.getUserId();
 
       if (!id) return;
 
       this.userService.getSelectedUser(id.toString()).subscribe({
         next: (user) => this.setShippingFromUser(user),
-        error: () => console.warn('Could not load user for shipping'),
+        error: () => console.error('Could not load user for shipping'),
       });
     }
   }

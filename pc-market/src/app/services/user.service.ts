@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { computed, inject, Injectable, signal } from '@angular/core';
 import { User } from '../models/user.model';
-import { catchError, Observable, of, tap } from 'rxjs';
+import { catchError, of, tap } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
@@ -49,9 +49,8 @@ export class UserService {
     }
   }
 
-  // == Methods ==
+  // === Methods ===
 
-  /* Create a new user */
   createUser(userData: Partial<User>) {
     this._loading.set(true);
     this._error.set(null);
@@ -75,13 +74,15 @@ export class UserService {
         this._loading.set(false);
       });
   }
+
   updateUser(userId: number, changes: Partial<User>) {
     return this.http.patch<User>(`${this.apiUrl}/${userId}`, changes);
   }
+
   deleteUser(id: number) {
     return this.http.delete(`${this.apiUrl}/${id}`);
   }
-  /* Login method */
+
   login(username: string, password: string) {
     this._loading.set(true);
     this._error.set(null);
@@ -100,6 +101,12 @@ export class UserService {
               this._isLoggedIn.set(true);
               this._username.set(username);
               this._id.set(res.userId);
+
+              console.log('%c[LOGIN] calling getSelectedUser...', 'color:blue');
+              this.getSelectedUser(res.userId.toString()).subscribe({
+                next: (u) =>
+                  console.log('%c[LOGIN] got user in login subscribe', 'color:orange', u),
+              });
             }
           }
           this._loading.set(false);
@@ -146,7 +153,28 @@ export class UserService {
     return this._id();
   }
 
-  getSelectedUser(id: string): Observable<User> {
-    return this.http.get<User>(`${this.apiUrl}/${id}`);
+  getSelectedUser(id: string) {
+    return this.http.get<any>(`${this.apiUrl}/${id}`).pipe(
+      tap((raw) => {
+        // Convert raw API response to User model
+        const mappedUser: User = {
+          id: raw.id,
+          username: raw.username,
+          dob: raw.dob,
+          accountCreated: raw.account_created,
+          firstName: raw.first_name,
+          lastName: raw.last_name,
+          address1: raw.address_1,
+          address2: raw.address_2,
+          stateCode: raw.state_code,
+          zipCode: raw.zip_code,
+          countryCode: raw.country_code,
+          passwordHash: raw.password_hash,
+        };
+
+        this._selectedUser.set(mappedUser);
+        this._user.set(mappedUser);
+      }),
+    );
   }
 }

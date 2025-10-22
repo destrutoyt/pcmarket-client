@@ -26,4 +26,7 @@ export class ProductViewComponent implements OnInit {
       this.productService.fetchProductById(id);
     }
   }
+  addToCart(product: Product): void {
+    console.log('Adding to cart:', product);
+  }
 }

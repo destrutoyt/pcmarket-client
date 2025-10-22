@@ -2,11 +2,7 @@
 
 <!-- Search bar -->
 <div class="container">
-  <input
-    class="search-input"
-    type="text"
-    placeholder="Search Products"
-  />
+  <input class="search-input" type="text" placeholder="Search Products" />
   <button class="search-button">Search</button>
 </div>
 
@@ -36,6 +32,7 @@
     <h3>{{ product.productName }}</h3>
     <p>Sold by: {{ product.shopName }}</p>
     <p class="price">${{ product.price }}</p>
-    <a class="details-link" [routerLink]="['/product', product.id]"> View Details </a>
+    <button class="details-link" (click)="viewProductDetails(product.id)">View Details</button>
+    <button class="add-to-cart" (click)="addToCart(product)">Add to Cart</button>
   </div>
 </div>

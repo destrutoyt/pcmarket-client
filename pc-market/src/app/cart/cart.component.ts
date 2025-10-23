@@ -3,6 +3,7 @@ import { UserService } from '../services/user.service';
 import { RouterLink } from '@angular/router';
 import { User } from '../models/user.model';
 import { FormsModule } from '@angular/forms';
+import { CartService } from '../services/cart.service';
 
 @Component({
   selector: 'app-cart',
@@ -12,6 +13,11 @@ import { FormsModule } from '@angular/forms';
 })
 export class CartComponent {
   private userService = inject(UserService);
+  private cartService = inject(CartService);
+
+  // Base signals from service
+  cart = this.cartService.cart;
+  loading = this.cartService.loading;
 
   shippingAddress = signal({
     fullName: '',
@@ -23,20 +29,29 @@ export class CartComponent {
   });
 
   ngOnInit() {
-    const cachedUser = this.userService.user();
+    // Get userId from localStorage (only browser-side)
+    let userId: number | null = null;
+    if (typeof window !== 'undefined') {
+      const val = localStorage.getItem('userId');
+      if (val) userId = Number(val);
+    }
+
+    const cachedUser = this.userService.getCachedUser();
 
     if (cachedUser) {
       this.setShippingFromUser(cachedUser);
-    } else {
-      console.warn('No cached user. Log out and log in again to load shipping information.');
-      const id = this.userService.getUserId();
-
-      if (!id) return;
-
-      this.userService.getSelectedUser(id.toString()).subscribe({
+    } else if (userId) {
+      this.userService.getSelectedUser(userId.toString()).subscribe({
         next: (user) => this.setShippingFromUser(user),
         error: () => console.error('Could not load user for shipping'),
       });
+    } else {
+      console.warn('No user found, cannot load shipping info.');
+    }
+
+    // -------- CART --------
+    if (userId) {
+      this.cartService.fetchCartItems(userId);
     }
   }
 
@@ -51,15 +66,8 @@ export class CartComponent {
     });
   }
 
-  cartItems = [
-    { name: 'Gaming Mouse', seller: 'TechStore', price: 49.99, quantity: 1 },
-    { name: 'Mechanical Keyboard', seller: 'KeyMasters', price: 89.99, quantity: 2 },
-    { name: 'HD Monitor', seller: 'DisplayWorld', price: 199.99, quantity: 1 },
-  ];
-
   totalPrice() {
-    let total = this.cartItems.reduce((total, item) => total + item.price * item.quantity, 0);
-    return total.toFixed(2);
+    return this.cart()?.totalPrice ?? 0;
   }
 
   paymentInfo = {
@@ -79,6 +87,6 @@ export class CartComponent {
 
   removeItem(item: any) {
     console.log(`Removing item: ${item.name}`);
-    this.cartItems = this.cartItems.filter((i) => i !== item);
+    // this.cartItems = this.cartItems.filter((i) => i !== item);
   }
 }

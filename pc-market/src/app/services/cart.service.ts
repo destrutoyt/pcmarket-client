@@ -10,11 +10,11 @@ export class CartService {
   private readonly apiUrl = 'http://localhost:8080/api/cart';
 
   // ==== Signals ====
-  private _cartItems = signal<Cart[]>([]);
+  private _cart = signal<Cart | null>(null);
   private _loading = signal(false);
   private _error = signal<string | null>(null);
 
-  cartItems = this._cartItems.asReadonly();
+  cart = this._cart.asReadonly();
   loading = this._loading.asReadonly();
   error = this._error.asReadonly();
 
@@ -23,10 +23,10 @@ export class CartService {
   fetchCartItems(userId: number) {
     this._loading.set(true);
     this._error.set(null);
-    this.http.get<Cart[]>(`${this.apiUrl}/${userId}`).subscribe({
+    this.http.get<Cart>(`${this.apiUrl}/${userId}`).subscribe({
       next: (data) => {
         console.log('Fetched cart items:', data);
-        this._cartItems.set(data);
+        this._cart.set(data);
         this._loading.set(false);
       },
       error: (err) => {

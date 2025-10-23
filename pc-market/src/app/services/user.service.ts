@@ -153,6 +153,10 @@ export class UserService {
     return this._id();
   }
 
+  getCachedUser(): User | null {
+    return this.selectedUser();
+  }
+  
   getSelectedUser(id: string) {
     return this.http.get<any>(`${this.apiUrl}/${id}`).pipe(
       tap((raw) => {

@@ -1,4 +1,4 @@
-@if (cartItems) {
+@if (cart() !== null) {
   <div class="cart-container">
     <h1>Your Cart</h1>
 
@@ -15,22 +15,26 @@
         <section class="cart-products">
           <h2>Products</h2>
           <ul>
-            @for (item of cartItems; track item.name) {
-              <li class="cart-product">
-                <!-- IMAGE PLACEHOLDER ADDED -->
-                <div class="product-image-placeholder">
-                  <img src="placeholder-img.png" alt="Product Image" />
-                </div>
-
-                <div class="product-info">
-                  <p class="product-name">{{ item.name }}</p>
-                  <p class="product-seller">Sold by: {{ item.seller }}</p>
-                  <p class="product-price">${{ item.price }}</p>
-                  <p class="product-quantity">Quantity: {{ item.quantity }}</p>
-                </div>
-
-                <a class="remove-item" (click)="removeItem(item)">Remove</a>
-              </li>
+            @if (cart(); as cart) {
+              @if (cart.cartItems.length === 0) {
+                <p>You have no items in your cart :c</p>
+              } @else {
+                @for (item of cart.cartItems; track item.productName) {
+                  <li class="cart-product">
+                    <!-- IMAGE PLACEHOLDER ADDED -->
+                    <div class="product-image-placeholder">
+                      <img src="placeholder-img.png" alt="Product Image" />
+                    </div>
+                    <div class="product-info">
+                      <p class="product-name">{{ item.productName }}</p>
+                      <p class="product-seller">Sold by: {{ item.productSeller }}</p>
+                      <p class="product-price">${{ item.price }}</p>
+                      <p class="product-quantity">Quantity: {{ item.quantity }}</p>
+                    </div>
+                    <a class="remove-item">Remove</a>
+                  </li>
+                }
+              }
             }
           </ul>
         </section>
@@ -108,8 +112,8 @@
           <b>NOTE:</b> This is a demo payment form. Do not enter real card details.
         </p>
 
-        @if (cartItems.length === 0) {
-          <p class="empty-cart-message">Your cart is empty. Add some products to proceed.</p>
+        @if (cart()?.cartItems?.length === 0) {
+          <button class="submit-order-disabled" [disabled]="true">SUBMIT ORDER</button>
         } @else {
           <button class="submit-order" (click)="submitOrder()">SUBMIT ORDER</button>
         }

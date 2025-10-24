@@ -12,6 +12,10 @@
           <button class="add-to-cart" (click)="addToCart(product()!)">Add to Cart</button>
           <button routerLink="/">← Back to Products</button>
         </div>
+        <div class="product-added-box" id="product-modal">
+          <button (click)="closeModal()" class="close-btn">&times;</button>
+          <p>Product added to cart!</p>
+        </div>
       </div>
     } @else {
       <p>Product not found.</p>

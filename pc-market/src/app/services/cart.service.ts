@@ -37,6 +37,14 @@ export class CartService {
     });
   }
   
+  addProductToCart(userId: number, productId: number, quantity: number) {
+    return this.http.post<Cart>(`${this.apiUrl}/add`, {
+      userId,
+      productId,
+      quantity,
+    });
+  }
+
   deleteCartItem(cartItemId: number) {
     return this.http.delete(`${this.apiUrl}/item/${cartItemId}`);
   }

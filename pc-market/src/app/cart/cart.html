@@ -1,8 +1,8 @@
-@if(cartItems) {
+@if (cart() !== null) {
   <div class="cart-container">
     <h1>Your Cart</h1>
 
-    @if(message()) {
+    @if (message()) {
       <div class="feedback-box">
         <span class="feedback-icon">ℹ️</span>
         <span class="feedback-text">{{ message() }}</span>
@@ -10,29 +10,31 @@
     }
 
     <div class="cart-layout">
-      
       <!-- LEFT CONTAINER: PRODUCTS -->
       <div class="cart-box left-box">
         <section class="cart-products">
           <h2>Products</h2>
           <ul>
-            @for(item of cartItems; track item.name) {
-              <li class="cart-product">
-
-                <!-- IMAGE PLACEHOLDER ADDED -->
-                <div class="product-image-placeholder">
-                  <img src="placeholder-img.png" alt="Product Image" />
-                </div>
-
-                <div class="product-info">
-                  <p class="product-name">{{ item.name }}</p>
-                  <p class="product-seller">Sold by: {{ item.seller }}</p>
-                  <p class="product-price">${{ item.price }}</p>
-                  <p class="product-quantity">Quantity: {{ item.quantity }}</p>
-                </div>
-
-                <a class="remove-item" (click)="removeItem(item)">Remove</a>
-              </li>
+            @if (cart(); as cart) {
+              @if (cart.cartItems.length === 0) {
+                <p>You have no items in your cart :c</p>
+              } @else {
+                @for (item of cart.cartItems; track item.productName) {
+                  <li class="cart-product">
+                    <!-- IMAGE PLACEHOLDER ADDED -->
+                    <div class="product-image-placeholder">
+                      <img src="placeholder-img.png" alt="Product Image" />
+                    </div>
+                    <div class="product-info">
+                      <p class="product-name">{{ item.productName }}</p>
+                      <p class="product-seller">Sold by: {{ item.seller }}</p>
+                      <p class="product-price">${{ item.price }}</p>
+                      <p class="product-quantity">Quantity: {{ item.quantity }}</p>
+                    </div>
+                    <a class="remove-item" (click)="removeItem(item.cartItemId)">Remove</a>
+                  </li>
+                }
+              }
             }
           </ul>
         </section>
@@ -40,36 +42,50 @@
 
       <!-- RIGHT CONTAINER: TOTAL + SHIPPING + PAYMENT + SUBMIT -->
       <div class="cart-box right-box">
-        
         <section class="total-amount">
-          <h2>Total Amount: <span>${{ totalPrice() }}</span></h2>
+          <h2>
+            Total Amount: <span>${{ totalPrice() }}</span>
+          </h2>
         </section>
 
         <section class="shipping-address">
-          <!-- CENTERED TITLE -->
-          <h2 class="centered-title">Shipping Address</h2>
-          <div class="form-group">
-            <label>Full Name</label>
-            <input type="text" value="{{ shippingAddress.fullName }}" required />
-          </div>
-          <div class="form-group">
-            <label>Address</label>
-            <input type="text" value="{{ shippingAddress.address }}" required />
-          </div>
-          <div class="form-group">
-            <label>City</label>
-            <input type="text" value="{{ shippingAddress.city }}" required />
-          </div>
-          <div class="form-group">
-            <label>Postal Code</label>
-            <input type="text" value="{{ shippingAddress.postalCode }}" required maxlength="10" />
-          </div>
-          <div class="form-group">
-            <label>Country</label>
-            <input type="text" value="{{ shippingAddress.country }}" required maxlength="50" />
-          </div>
-        </section>
+          <h2 class="centered-title shipping-header">
+            Shipping Address
+            <button class="edit-button" [routerLink]="'/profile'">Edit</button>
+          </h2>
 
+          @if (shippingAddress(); as addr) {
+            <div class="form-group">
+              <label>Full Name</label>
+              <input type="text" [value]="addr.fullName" readonly />
+            </div>
+
+            <div class="form-group">
+              <label>Address</label>
+              <input type="text" [value]="addr.addressLine1" readonly />
+            </div>
+
+            <div class="form-group">
+              <label>Apt/Unit</label>
+              <input type="text" [value]="addr.addressLine2" readonly />
+            </div>
+
+            <div class="form-group">
+              <label>State</label>
+              <input type="text" [value]="addr.state" readonly />
+            </div>
+
+            <div class="form-group">
+              <label>Postal Code</label>
+              <input type="text" [value]="addr.zipCode" readonly />
+            </div>
+
+            <div class="form-group">
+              <label>Country</label>
+              <input type="text" [value]="addr.country" readonly />
+            </div>
+          }
+        </section>
         <section class="card-details">
           <!-- CENTERED TITLE -->
           <h2 class="centered-title">Payment Details</h2>
@@ -92,20 +108,19 @@
             </div>
           </div>
         </section>
-          <p style="padding: 0; margin: 0;"><b>NOTE:</b> This is a demo payment form. Do not enter real card details.</p>
+        <p style="padding: 0; margin: 0">
+          <b>NOTE:</b> This is a demo payment form. Do not enter real card details.
+        </p>
 
-        @if(cartItems.length === 0) {
-          <p class="empty-cart-message">Your cart is empty. Add some products to proceed.</p>
-        }
-        @else {
-          <button class="submit-order" (click)="submitOrder()">SUBMIT ORDER</button>
+        @if (cart()?.cartItems?.length === 0) {
+          <button class="submit-order-disabled" [disabled]="true">SUBMIT ORDER</button>
+        } @else {
+          <button class="submit-order" (click)="placeOrder()">SUBMIT ORDER</button>
         }
       </div>
-
     </div>
   </div>
-}
-@else {
+} @else {
   <div class="loading">
     <div class="spinner"></div>
     <p>Loading cart data...</p>

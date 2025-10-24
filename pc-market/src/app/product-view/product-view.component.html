@@ -1,24 +1,26 @@
-<section *ngIf="!loading(); else loadingTpl">
-  <ng-container *ngIf="product(); else noProductTpl">
-    <div class="product-view">
-      <img [src]="product()!.imageUrl" alt="{{ product()!.productName }}" />
-      <div class="product-info">
-        <h2>{{ product()!.productName }}</h2>
-        <p>{{ product()!.description }}</p>
-        <p><strong>Category:</strong> {{ product()!.categoryId }}</p>
-        <p><strong>Seller:</strong> {{ product()!.shopName }}</p>
-        <p><strong>Price:</strong> ${{ product()!.price }}</p>
-        <button class="add-to-cart">Add to Cart</button>
-        <button routerLink="/">← Back to Products</button>
+<section>
+  @if (!loading()) {
+    @if (product()) {
+      <div class="product-view">
+        <img [src]="product()!.imageUrl" alt="{{ product()!.productName }}" />
+        <div class="product-info">
+          <h2>{{ product()!.productName }}</h2>
+          <p>{{ product()!.description }}</p>
+          <p><strong>Category:</strong> {{ product()!.categoryId }}</p>
+          <p><strong>Seller:</strong> {{ product()!.shopName }}</p>
+          <p><strong>Price:</strong> ${{ product()!.price }}</p>
+          <button class="add-to-cart" (click)="addToCart(product()!)">Add to Cart</button>
+          <button routerLink="/">← Back to Products</button>
+        </div>
+        <div class="product-added-box" id="product-modal">
+          <button (click)="closeModal()" class="close-btn">&times;</button>
+          <p>Product added to cart!</p>
+        </div>
       </div>
-    </div>
-  </ng-container>
+    } @else {
+      <p>Product not found.</p>
+    }
+  } @else {
+    <p>Loading product details...</p>
+  }
 </section>
-
-<ng-template #noProductTpl>
-  <p>Product not found.</p>
-</ng-template>
-
-<ng-template #loadingTpl>
-  <p>Loading product details...</p>
-</ng-template>

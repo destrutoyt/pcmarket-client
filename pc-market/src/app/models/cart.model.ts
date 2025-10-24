@@ -1,11 +1,13 @@
 export interface CartItem {
+  cartItemId: number;
   productId: number;
   productName: string;
+  seller: string;
   quantity: number;
   price: number;
 }
 export interface Cart {
-  userId: number;
-  items: CartItem[];
+  cartId: number;
+  cartItems: CartItem[];
   totalPrice: number;
 }

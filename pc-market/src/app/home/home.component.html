@@ -2,11 +2,7 @@
 
 <!-- Search bar -->
 <div class="container">
-  <input
-    class="search-input"
-    type="text"
-    placeholder="Search Products"
-  />
+  <input class="search-input" type="text" placeholder="Search Products" />
   <button class="search-button">Search</button>
 </div>
 
@@ -30,12 +26,16 @@
 
 <!-- Product grid -->
 <div class="product-grid">
-  <!-- 👇 Call products() because it's a signal -->
   <div class="product-card" *ngFor="let product of products()">
     <img [src]="product.imageUrl" alt="{{ product.productName }}" />
     <h3>{{ product.productName }}</h3>
     <p>Sold by: {{ product.shopName }}</p>
     <p class="price">${{ product.price }}</p>
-    <a class="details-link" [routerLink]="['/product', product.id]"> View Details </a>
+    <button class="details-link" (click)="viewProductDetails(product.id)">View Details</button>
+    <button class="add-to-cart" (click)="addToCart(product)">Add to Cart</button>
+  </div>
+  <div class="product-added-box" id="product-modal">
+    <button (click)="closeModal()" class="close-btn">&times;</button>
+    <p>Product added to cart!</p>
   </div>
 </div>

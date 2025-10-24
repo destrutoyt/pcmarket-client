@@ -67,7 +67,7 @@ export class CartComponent {
   }
 
   totalPrice() {
-    return this.cart()?.totalPrice ?? 0;
+    return (this.cart()?.totalPrice ?? 0).toFixed(2);
   }
 
   paymentInfo = {

@@ -24,7 +24,7 @@ export class ProductService {
 
   // === Methods ===
 
-  /** Fetch product list */
+  /* Fetch product list */
   fetchProducts() {
     this._loading.set(true);
     this._error.set(null);
@@ -41,7 +41,7 @@ export class ProductService {
     });
   }
 
-  /** Fetch single product by ID */
+  /* Fetch single product by ID */
   fetchProductById(id: number) {
     this._loading.set(true);
     this._error.set(null);

@@ -1,35 +1,74 @@
-import { Component } from '@angular/core';
+import { Component, inject, signal } from '@angular/core';
+import { UserService } from '../services/user.service';
+import { RouterLink } from '@angular/router';
+import { User } from '../models/user.model';
+import { FormsModule } from '@angular/forms';
+import { CartService } from '../services/cart.service';
 
 @Component({
   selector: 'app-cart',
   templateUrl: './cart.html',
   styleUrls: ['./cart.css'],
+  imports: [RouterLink, FormsModule],
 })
 export class CartComponent {
-  cartItems = [
-    { name: 'Gaming Mouse', seller: 'TechStore', price: 49.99, quantity: 1 },
-    { name: 'Mechanical Keyboard', seller: 'KeyMasters', price: 89.99, quantity: 2 },
-    { name: 'HD Monitor', seller: 'DisplayWorld', price: 199.99, quantity: 1 },
-    { name: 'Gaming Mouse', seller: 'TechStore', price: 49.99, quantity: 1 },
-    { name: 'Mechanical Keyboard', seller: 'KeyMasters', price: 89.99, quantity: 2 },
-    { name: 'HD Monitor', seller: 'DisplayWorld', price: 199.99, quantity: 1 },
-    { name: 'Gaming Mouse', seller: 'TechStore', price: 49.99, quantity: 1 },
-    { name: 'Mechanical Keyboard', seller: 'KeyMasters', price: 89.99, quantity: 2 },
-    { name: 'HD Monitor', seller: 'DisplayWorld', price: 199.99, quantity: 1 },
-  ];
+  private userService = inject(UserService);
+  private cartService = inject(CartService);
 
-  totalPrice() {
-    let total = this.cartItems.reduce((total, item) => total + item.price * item.quantity, 0);
-    return total.toFixed(2);
+  // Base signals from service
+  cart = this.cartService.cart;
+  loading = this.cartService.loading;
+
+  shippingAddress = signal({
+    fullName: '',
+    addressLine1: '',
+    addressLine2: '',
+    state: '',
+    zipCode: '',
+    country: '',
+  });
+
+  ngOnInit() {
+    // Get userId from localStorage (only browser-side)
+    let userId: number | null = null;
+    if (typeof window !== 'undefined') {
+      const val = localStorage.getItem('userId');
+      if (val) userId = Number(val);
+    }
+
+    const cachedUser = this.userService.getCachedUser();
+
+    if (cachedUser) {
+      this.setShippingFromUser(cachedUser);
+    } else if (userId) {
+      this.userService.getSelectedUser(userId.toString()).subscribe({
+        next: (user) => this.setShippingFromUser(user),
+        error: () => console.error('Could not load user for shipping'),
+      });
+    } else {
+      console.warn('No user found, cannot load shipping info.');
+    }
+
+    // -------- CART --------
+    if (userId) {
+      this.cartService.fetchCartItems(userId);
+    }
   }
 
-  shippingAddress = {
-    fullName: 'John Doe',
-    address: '123 Main St',
-    city: 'New York',
-    postalCode: '10001',
-    country: 'USA',
-  };
+  private setShippingFromUser(user: User) {
+    this.shippingAddress.set({
+      fullName: `${user.firstName} ${user.lastName}`,
+      addressLine1: user.address1,
+      addressLine2: user.address2 || '',
+      state: user.stateCode,
+      zipCode: user.zipCode,
+      country: user.countryCode,
+    });
+  }
+
+  totalPrice() {
+    return (this.cart()?.totalPrice ?? 0).toFixed(2);
+  }
 
   paymentInfo = {
     cardName: 'John Doe',
@@ -45,8 +84,9 @@ export class CartComponent {
   submitOrder() {
     console.log('Order submitted!');
   }
+
   removeItem(item: any) {
     console.log(`Removing item: ${item.name}`);
-    this.cartItems = this.cartItems.filter(i => i !== item);
+    // this.cartItems = this.cartItems.filter((i) => i !== item);
   }
 }

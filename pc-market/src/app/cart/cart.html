@@ -31,7 +31,7 @@
                       <p class="product-price">${{ item.price }}</p>
                       <p class="product-quantity">Quantity: {{ item.quantity }}</p>
                     </div>
-                    <a class="remove-item">Remove</a>
+                    <a class="remove-item" (click)="removeItem(item.cartItemId)">Remove</a>
                   </li>
                 }
               }
@@ -115,7 +115,7 @@
         @if (cart()?.cartItems?.length === 0) {
           <button class="submit-order-disabled" [disabled]="true">SUBMIT ORDER</button>
         } @else {
-          <button class="submit-order" (click)="submitOrder()">SUBMIT ORDER</button>
+          <button class="submit-order" (click)="placeOrder()">SUBMIT ORDER</button>
         }
       </div>
     </div>

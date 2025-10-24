@@ -81,12 +81,33 @@ export class CartComponent {
     return 'Test message: cart loaded successfully';
   }
 
-  submitOrder() {
-    console.log('Order submitted!');
+  placeOrder() {
+    let userId: number | null = null;
+    if (typeof window !== 'undefined') {
+      const val = localStorage.getItem('userId');
+      if (val) userId = Number(val);
+    }
+    this.cartService.checkout(userId!).subscribe({
+      next: () => {
+        console.log('Checkout successful');
+      },
+      error: (err) => {
+        console.error('Error during checkout', err);
+      },
+    });
   }
 
-  removeItem(item: any) {
-    console.log(`Removing item: ${item.name}`);
-    // this.cartItems = this.cartItems.filter((i) => i !== item);
+  removeItem(cartItemId: number) {
+    console.log(`Removing item: ${cartItemId}`);
+    this.cartService.deleteCartItem(cartItemId).subscribe({
+      next: () => {
+        console.log('Item removed successfully');
+        //  Refresh browser cart after deletion
+        window.location.reload();
+      },
+      error: (err) => {
+        console.error('Error removing item from cart', err);
+      },
+    });
   }
 }

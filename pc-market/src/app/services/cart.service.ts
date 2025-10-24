@@ -48,4 +48,10 @@ export class CartService {
   deleteCartItem(cartItemId: number) {
     return this.http.delete(`${this.apiUrl}/item/${cartItemId}`);
   }
+
+  checkout(userId: number) {
+    return this.http.post(`${this.apiUrl}/checkout`, null, { 
+      params: { userId: userId.toString() } // Required since backend expects userId as a query param (@RequestParam)
+    });
+  }
 }

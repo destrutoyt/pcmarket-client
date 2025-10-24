@@ -82,21 +82,20 @@ h2 {
   align-items: center;
   padding: 1rem 0;
   border-bottom: 1px solid #e5e7eb;
-  transition: background 0.2s;
-}
-.cart-product:hover {
-  background-color: rgba(220, 231, 208, 0.301);
 }
 .remove-item {
+  padding: 10px;
+  border: 1px solid red;
+  border-radius: 8px;
   margin-left: auto;
   color: red;
   cursor: pointer;
   font-weight: 600;
-  text-decoration: underline;
-  transition: color 0.3s;
+  transition: all 0.3s;
 }
 .remove-item:hover {
-  color: darkred;
+  background-color: rgba(255, 38, 0, 0.562);
+  color: rgb(77, 8, 8);
 }
 .product-info p {
   margin: 0.2rem 0;

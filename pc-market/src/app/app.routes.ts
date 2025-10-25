@@ -9,6 +9,7 @@ import { OrdersComponent } from './orders/orders.component';
 import { UserRegistrationComponent } from './user-registration/user-registration.component';
 import { SellerRegistrationComponent } from './seller-registration/seller-registration.component';
 import { ProductViewComponent } from './product-view/product-view.component';
+import { SuccessOrderComponent } from './success-order/success-order.component';
 
 export const routes: Routes = [
   { path: '', component: HomeComponent },
@@ -20,5 +21,6 @@ export const routes: Routes = [
   { path: 'cart', component: CartComponent },
   { path: 'orders', component: OrdersComponent },
   { path: 'register', component: UserRegistrationComponent },
-  { path: 'seller-register', component: SellerRegistrationComponent }
+  { path: 'seller-register', component: SellerRegistrationComponent },
+  { path: 'success-order', component: SuccessOrderComponent }
 ];

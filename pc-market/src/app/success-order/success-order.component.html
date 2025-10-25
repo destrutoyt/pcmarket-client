@@ -1,0 +1,22 @@
+@if (loading()) {
+  <div class="loading">
+    <div class="spinner"></div>
+    <p class="msg msg-1">Creating Order...</p>
+    <p class="msg msg-2">Finalizing Purchase...</p>
+    <p class="msg msg-3">Almost there!</p>
+  </div>
+} @else {
+  <div class="success-wrapper">
+    <div class="checkmark-circle animate">✓</div>
+    <h1>Thank you for your order!</h1>
+    <p class="order">Order #{{ orderId() }} Placed!</p>
+    <p class="info">
+      You will receive an email confirmation shortly with details about your order.<br>If you have any questions, feel free to contact the seller or our support team.
+    </p>
+
+    <div class="actions">
+      <button [routerLink]="['/orders']">View Orders</button>
+      <button [routerLink]="['/']">Go Home</button>
+    </div>
+  </div>
+}

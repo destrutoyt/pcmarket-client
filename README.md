@@ -6,13 +6,17 @@
 
 ## 🚀 Project Overview
 
-This repository contains the client-side (frontend) of the PC Market application, built with the latest version of **Angular**. 
-This application serves as the user interface for a full-stack marketplace, allowing users to browse, buy, and sell PC components.
+This repository contains the **frontend of PC Market**, a full-stack web application that allows users to **buy and sell custom PCs**.  
+This application serves as the user interface for a the full-stack marketplace, allowing users to browse, buy, and sell pre-built or custom-made PCs or laptops.
 
-The project is currently in the **planning** and **setup** stages. This initial structure focuses on establishing a modern, high-performance architecture. 
-More information, UI mockups, and live deployment details will be released as the project progresses.
+A MVP/demo of the project will be released soon. Check my [Project Roadmap](https://github.com/users/destrutoyt/projects/2) for more information (daily updates)!
 
-## 🛠 Tools & Technologies (NOT FINAL)
+💡 **NOTES** 
+- This frontend is part of a full-stack project. The backend or server-side is in a [separate repository](https://github.com/destrutoyt/pcmarket-server).
+- MVP release will contain core features, but it is not the final design and it may contain errors.
+- Further information will be shared shortly after MVP release.
+
+## 🛠 Tools & Technologies
 
 - **Angular (v17+)** – Client-side application logic, component structure, and robust tooling.
 - **Angular Signals** – Next-generation reactive state management and change detection (Zoneless architecture).
@@ -22,7 +26,7 @@ More information, UI mockups, and live deployment details will be released as th
 
 ## ⚙️ Setup & Installation
 
-> ⚠️ Front-end is under development. Full instructions will be released as the project progresses.
+> ⚠️ Instructions will be provided later.
 
 ## 📦 Planned Features
 
@@ -35,13 +39,10 @@ More information, UI mockups, and live deployment details will be released as th
 
 ## ⚠️ Known Issues
 
-- Project is in early stages; most features, including UI, are not yet implemented.
+- None at the moment
 
 ## 📄 License
 
 This project is licensed under the [MIT License](https://github.com/destrutoyt/pcmarket-client/blob/main/LICENSE).
 
 ---
-
-💡 **Note:** This frontend is part of a full-stack project. The backend or server-side will be in a separate repository. More information and documentation will be added as development continues.
-

@@ -1,6 +1,6 @@
 import { Component, inject, signal } from '@angular/core';
 import { UserService } from '../services/user.service';
-import { RouterLink } from '@angular/router';
+import { Router, RouterLink } from '@angular/router';
 import { User } from '../models/user.model';
 import { FormsModule } from '@angular/forms';
 import { CartService } from '../services/cart.service';
@@ -14,6 +14,7 @@ import { CartService } from '../services/cart.service';
 export class CartComponent {
   private userService = inject(UserService);
   private cartService = inject(CartService);
+  private router = inject(Router);
 
   // Base signals from service
   cart = this.cartService.cart;
@@ -90,6 +91,7 @@ export class CartComponent {
     this.cartService.checkout(userId!).subscribe({
       next: () => {
         console.log('Checkout successful');
+        this.router.navigate(['/success-order']);
       },
       error: (err) => {
         console.error('Error during checkout', err);
@@ -102,8 +104,7 @@ export class CartComponent {
     this.cartService.deleteCartItem(cartItemId).subscribe({
       next: () => {
         console.log('Item removed successfully');
-        //  Refresh browser cart after deletion
-        window.location.reload();
+        this.router.navigate(['/cart']);
       },
       error: (err) => {
         console.error('Error removing item from cart', err);

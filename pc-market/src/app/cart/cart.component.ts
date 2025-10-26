@@ -104,7 +104,7 @@ export class CartComponent {
     this.cartService.deleteCartItem(cartItemId).subscribe({
       next: () => {
         console.log('Item removed successfully');
-        this.router.navigate(['/cart']);
+        window.location.reload();
       },
       error: (err) => {
         console.error('Error removing item from cart', err);

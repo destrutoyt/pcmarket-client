@@ -27,6 +27,7 @@ export class AppComponent {
   }
   signOut() {
     this.userService.logout();
+    window.location.reload();
     this.router.navigate(['/']);
   }
 }

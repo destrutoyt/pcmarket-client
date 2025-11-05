@@ -20,51 +20,22 @@ export class CartComponent {
   cart = this.cartService.cart;
   loading = this.cartService.loading;
 
-  shippingAddress = signal({
-    fullName: '',
-    addressLine1: '',
-    addressLine2: '',
-    state: '',
-    zipCode: '',
-    country: '',
-  });
+  // Signal to store user data
+  user = signal<User | null>(null);
 
   ngOnInit() {
-    // Get userId from localStorage (only browser-side)
-    let userId: number | null = null;
-    if (typeof window !== 'undefined') {
-      const val = localStorage.getItem('userId');
-      if (val) userId = Number(val);
-    }
+    const userIdStr = typeof window !== 'undefined' ? localStorage.getItem('userId') : null;
+    const userId = userIdStr ? Number(userIdStr) : null;
 
-    const cachedUser = this.userService.getCachedUser();
-
-    if (cachedUser) {
-      this.setShippingFromUser(cachedUser);
-    } else if (userId) {
+    if (userId !== null) {
       this.userService.getSelectedUser(userId.toString()).subscribe({
-        next: (user) => this.setShippingFromUser(user),
-        error: () => console.error('Could not load user for shipping'),
+        next: () => {
+          this.user.set(this.userService.user());
+        },
+        error: (err) => console.error('Error fetching user data', err),
       });
-    } else {
-      console.warn('No user found, cannot load shipping info.');
-    }
-
-    // -------- CART --------
-    if (userId) {
       this.cartService.fetchCartItems(userId);
     }
-  }
-
-  private setShippingFromUser(user: User) {
-    this.shippingAddress.set({
-      fullName: `${user.firstName} ${user.lastName}`,
-      addressLine1: user.address1,
-      addressLine2: user.address2 || '',
-      state: user.stateCode,
-      zipCode: user.zipCode,
-      country: user.countryCode,
-    });
   }
 
   totalPrice() {
@@ -88,6 +59,7 @@ export class CartComponent {
       const val = localStorage.getItem('userId');
       if (val) userId = Number(val);
     }
+
     this.cartService.checkout(userId!).subscribe({
       next: () => {
         console.log('Checkout successful');
@@ -101,6 +73,7 @@ export class CartComponent {
 
   removeItem(cartItemId: number) {
     console.log(`Removing item: ${cartItemId}`);
+
     this.cartService.deleteCartItem(cartItemId).subscribe({
       next: () => {
         console.log('Item removed successfully');

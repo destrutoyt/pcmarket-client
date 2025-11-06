@@ -1,11 +1,10 @@
 import { Component, computed, inject, signal } from '@angular/core';
 import { RouterOutlet, RouterLink, RouterLinkActive, Router } from "@angular/router";
 import { UserService } from './services/user.service';
-import { NgIf } from '@angular/common';
 
 @Component({
   selector: 'app-root',
-  imports: [RouterOutlet, RouterLink, RouterLinkActive, NgIf],
+  imports: [RouterOutlet, RouterLink, RouterLinkActive],
   templateUrl: './app.html',
   styleUrls: ['./app.css']
 })
@@ -14,6 +13,7 @@ export class AppComponent {
   private userService = inject(UserService);
   private router = inject(Router);
   menuOpen = false;
+  mobileNavOpen = false;
 
   // Use signals from UserService
   isLoggedIn = computed(() => this.userService.isLoggedIn());
@@ -21,6 +21,9 @@ export class AppComponent {
 
   toggleMenu() {
     this.menuOpen = !this.menuOpen;
+  }
+  toggleMobileNav() {
+    this.mobileNavOpen = !this.mobileNavOpen;
   }
   closeMenu() {
     this.menuOpen = false;

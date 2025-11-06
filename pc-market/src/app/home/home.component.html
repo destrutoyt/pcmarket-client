@@ -1,41 +1,42 @@
-<h1>Welcome to PC Market</h1>
-
-<!-- Search bar -->
-<div class="container">
-  <input class="search-input" type="text" placeholder="Search Products" />
-  <button class="search-button">Search</button>
-</div>
-
-<!-- Sort & filter -->
-<div class="container-child">
-  <select class="sort-select">
-    <option value="">Sort By</option>
-    <option value="price-asc">Price: Low to High</option>
-    <option value="price-desc">Price: High to Low</option>
-    <option value="newest">Newest Listings</option>
-  </select>
-
-  <select class="filter-select">
-    <option value="">Filter By</option>
-    <option value="gaming">Gaming Category</option>
-    <option value="work">Work Category</option>
-    <option value="daily">Daily Category</option>
-    <option value="server">Server Category</option>
-  </select>
-</div>
-
-<!-- Product grid -->
-<div class="product-grid">
-  <div class="product-card" *ngFor="let product of products()">
-    <img [src]="product.imageUrl" alt="{{ product.productName }}" />
-    <h3>{{ product.productName }}</h3>
-    <p>Sold by: {{ product.shopName }}</p>
-    <p class="price">${{ product.price }}</p>
-    <button class="details-link" (click)="viewProductDetails(product.id)">View Details</button>
-    <button class="add-to-cart" (click)="addToCart(product)">Add to Cart</button>
+<div class="home-container">
+  <h1>Welcome to PC Market</h1>
+  <!-- Search bar -->
+  <div class="container">
+    <input class="search-input" type="text" placeholder="Search Products" />
+    <button class="search-button">Search</button>
   </div>
-  <div class="product-added-box" id="product-modal">
-    <button (click)="closeModal()" class="close-btn">&times;</button>
-    <p>Product added to cart!</p>
+
+  <!-- Sort & filter -->
+  <div class="container-child">
+    <select class="sort-select">
+      <option value="">Sort By</option>
+      <option value="price-asc">Price: Low to High</option>
+      <option value="price-desc">Price: High to Low</option>
+      <option value="newest">Newest Listings</option>
+    </select>
+
+    <select class="filter-select">
+      <option value="">Filter By</option>
+      <option value="gaming">Gaming Category</option>
+      <option value="work">Work Category</option>
+      <option value="daily">Daily Category</option>
+      <option value="server">Server Category</option>
+    </select>
+  </div>
+
+  <!-- Product grid -->
+  <div class="product-grid">
+    <div class="product-card" *ngFor="let product of products()">
+      <img [src]="product.imageUrl" alt="{{ product.productName }}" />
+      <h3>{{ product.productName }}</h3>
+      <p>Sold by: {{ product.shopName }}</p>
+      <p class="price">${{ product.price }}</p>
+      <button class="details-link" (click)="viewProductDetails(product.id)">View Details</button>
+      <button class="add-to-cart" (click)="addToCart(product)">Add to Cart</button>
+    </div>
+    <div class="product-added-box" id="product-modal">
+      <button (click)="closeModal()" class="close-btn">&times;</button>
+      <p>Product added to cart!</p>
+    </div>
   </div>
 </div>

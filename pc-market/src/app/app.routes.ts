@@ -10,6 +10,7 @@ import { UserRegistrationComponent } from './user-registration/user-registration
 import { SellerRegistrationComponent } from './seller-registration/seller-registration.component';
 import { ProductViewComponent } from './product-view/product-view.component';
 import { SuccessOrderComponent } from './success-order/success-order.component';
+import { ErrorPageComponent } from './error-page/error-page.component';
 
 export const routes: Routes = [
   { path: '', component: HomeComponent },
@@ -22,5 +23,7 @@ export const routes: Routes = [
   { path: 'orders', component: OrdersComponent },
   { path: 'register', component: UserRegistrationComponent },
   { path: 'seller-register', component: SellerRegistrationComponent },
-  { path: 'success-order', component: SuccessOrderComponent }
+  { path: 'success-order', component: SuccessOrderComponent },
+  { path: '404', component: ErrorPageComponent }
+
 ];

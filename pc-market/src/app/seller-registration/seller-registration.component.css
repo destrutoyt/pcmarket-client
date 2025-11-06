@@ -7,6 +7,7 @@
   max-width: 1200px;
   margin: 40px auto;
   padding: 20px;
+  font-family: 'REM', sans-serif;
 }
 
 /* --- Form Column --- */
@@ -15,7 +16,6 @@
   padding: 40px;
   border-radius: 10px;
   box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
-  font-family: 'REM', sans-serif;
 }
 .form-column h1 {
   font-size: 2.5rem;
@@ -56,7 +56,22 @@
   margin-top: 15px;
   font-style: italic;
 }
-
+.submit-seller-button {
+  background: linear-gradient(135deg, #04b169, #04abb1);
+  color: #fff;
+  border: none;
+  border-radius: 6px;
+  padding: 0.9rem 1.8rem;
+  font-size: 1.1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  animation: fadeIn 1s ease forwards;
+}
+.submit-seller-button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 10px rgba(4, 177, 105, 0.3);
+}
 /* --- Info Column --- */
 .info-column {
   display: flex;

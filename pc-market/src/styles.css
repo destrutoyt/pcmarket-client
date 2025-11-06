@@ -9,7 +9,7 @@ html, body {
   padding: 0;
 }
 p, h1, h2, h3, h4, h5, h6, a, select, button, input, textarea, li {
-  font-family: 'REM', sans-serif;
+  font-family: 'REM', sans-serif !important;
 }
 /* ===== MAIN LAYOUT ===== */
 main {
@@ -24,27 +24,6 @@ main {
 }
 
 /* --- SELLER CONDUCT GLOBAL STYLING --- */
-.cta-button {
-  display: block;
-  width: 100%;
-  padding: 15px;
-  background-color: #28a7a7;
-  color: #fff;
-  border: none;
-  border-radius: 5px;
-  font-size: 1.2rem;
-  font-weight: bold;
-  text-transform: uppercase;
-  cursor: pointer;
-  transition:
-    background-color 0.3s ease,
-    transform 0.2s ease;
-  text-decoration: none;
-}
-.cta-button:hover {
-  background-color: rgb(40, 168, 115);
-  transform: translateY(-2px);
-}
 .container-child.seller-info a {
   text-decoration: none;
   color: #007bff;

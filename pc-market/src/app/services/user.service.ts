@@ -3,6 +3,10 @@ import { computed, inject, Injectable, signal } from '@angular/core';
 import { User } from '../models/user.model';
 import { catchError, of, tap } from 'rxjs';
 
+function isBrowser(): boolean {
+  return typeof window !== 'undefined' && typeof localStorage !== 'undefined';
+}
+
 @Injectable({
   providedIn: 'root',
 })
@@ -10,56 +14,52 @@ export class UserService {
   private http = inject(HttpClient);
   private readonly apiUrl = 'http://localhost:8080/api/users';
 
-  // == Signals ==
+  // === Signals ===
   private _users = signal<User[]>([]);
   private _selectedUser = signal<User | null>(null);
+  private _user = signal<User | null>(null);
   private _loading = signal(false);
   private _error = signal<string | null>(null);
 
-  // == Signals for login state ==
+  // === Login / Auth state ===
   private _isLoggedIn = signal(false);
   private _username = signal<string | null>(null);
   private _id = signal<number | null>(null);
 
-  // **Added this signal to store full user data**
-  private _user = signal<User | null>(null);
-
-  // == Public readonly signals ==
+  // === Computed signals (read-only to components) ===
   users = computed(() => this._users());
   selectedUser = computed(() => this._selectedUser());
+  user = computed(() => this._user());
   loading = computed(() => this._loading());
   error = computed(() => this._error());
-  user = computed(() => this._user()); // Added computed signal for full user
-
-  // Login state
-  isLoggedIn = computed(() => !!this._isLoggedIn());
+  isLoggedIn = computed(() => this._isLoggedIn());
   username = computed(() => this._username());
 
   constructor() {
-    const token = this.getToken();
-    const username = this.getUsername();
-    if (token && username) {
-      Promise.resolve().then(() => {
+    if (isBrowser()) {
+      const token = localStorage.getItem('jwtToken');
+      const username = localStorage.getItem('username');
+      const userId = localStorage.getItem('userId');
+      if (token && username && userId) {
         this._isLoggedIn.set(true);
         this._username.set(username);
-        // Automatically restore user ID if stored
-        const userId = localStorage.getItem('userId');
-        if (userId) this._id.set(Number(userId));
-      });
+        this._id.set(Number(userId));
+      }
     }
   }
 
-  // === Methods ===
+  // === CRUD Operations ===
 
+  /** Create user */
   createUser(userData: Partial<User>) {
     this._loading.set(true);
     this._error.set(null);
 
     this.http
-      .post<User>(`${this.apiUrl}`, userData)
+      .post<User>(this.apiUrl, userData)
       .pipe(
         catchError((err) => {
-          console.error('Error creating user', err);
+          console.error('[USER CREATE ERROR]', err);
           this._error.set('Failed to create user');
           this._loading.set(false);
           return of(null);
@@ -67,7 +67,7 @@ export class UserService {
       )
       .subscribe((createdUser) => {
         if (createdUser) {
-          console.log('User created:', createdUser);
+          console.log('[USER CREATED]', createdUser);
           this._users.update((prev) => [...prev, createdUser]);
           this._selectedUser.set(createdUser);
         }
@@ -75,14 +75,39 @@ export class UserService {
       });
   }
 
-  updateUser(userId: number, changes: Partial<User>) {
-    return this.http.patch<User>(`${this.apiUrl}/${userId}`, changes);
+  /** Update user (PATCH) */
+  patchUser(userId: number, changes: Partial<User>) {
+    return this.http.patch<User>(`${this.apiUrl}/${userId}`, changes).pipe(
+      tap((user) => {
+        // Keep signals in sync
+        this._selectedUser.set(user);
+        this._user.set(user);
+      }),
+      catchError((err) => {
+        console.error('[USER UPDATE ERROR]', err);
+        return of(null as unknown as User);
+      }),
+    );
   }
 
+  /** Delete user by ID */
   deleteUser(id: number) {
     return this.http.delete(`${this.apiUrl}/${id}`);
   }
 
+  /** Get single user */
+  getSelectedUser(id: string) {
+    return this.http.get<User>(`${this.apiUrl}/${id}`).pipe(
+      tap((user) => {
+        this._selectedUser.set(user);
+        this._user.set(user);
+      }),
+    );
+  }
+
+  // === Authentication ===
+
+  /** Login */
   login(username: string, password: string) {
     this._loading.set(true);
     this._error.set(null);
@@ -92,61 +117,50 @@ export class UserService {
       .subscribe({
         next: (res) => {
           if (res && res.token) {
-            if (typeof localStorage !== 'undefined') {
-              localStorage.setItem('jwtToken', res.token);
-              localStorage.setItem('username', username); // store as plain string
-              localStorage.setItem('userId', res.userId.toString()); // store user ID as string
+            // Store token and user info locally
+            localStorage.setItem('jwtToken', res.token);
+            localStorage.setItem('username', username);
+            localStorage.setItem('userId', res.userId.toString());
 
-              // update signals
-              this._isLoggedIn.set(true);
-              this._username.set(username);
-              this._id.set(res.userId);
+            this._isLoggedIn.set(true);
+            this._username.set(username);
+            this._id.set(res.userId);
 
-              console.log('%c[LOGIN] calling getSelectedUser...', 'color:blue');
-              this.getSelectedUser(res.userId.toString()).subscribe({
-                next: (u) =>
-                  console.log('%c[LOGIN] got user in login subscribe', 'color:orange', u),
-              });
-            }
+            console.log('%c[LOGIN] Fetching full user...', 'color:blue');
+            this.getSelectedUser(res.userId.toString()).subscribe({
+              next: (u) => console.log('%c[LOGIN] User loaded:', 'color:green', u),
+            });
           }
           this._loading.set(false);
         },
         error: (err) => {
-          console.error('Login error', err);
+          console.error('[LOGIN ERROR]', err);
           this._error.set('Invalid username or password');
           this._loading.set(false);
         },
       });
   }
 
-  /* Logout safely */
+  /** Logout */
   logout(): void {
-    if (typeof localStorage !== 'undefined') {
-      localStorage.removeItem('jwtToken');
-      localStorage.removeItem('username');
-      localStorage.removeItem('userId');
-    }
-    this._selectedUser.set(null);
+    localStorage.removeItem('jwtToken');
+    localStorage.removeItem('username');
+    localStorage.removeItem('userId');
     this._isLoggedIn.set(false);
     this._username.set(null);
-    this._user.set(null); // Clear stored user
     this._id.set(null);
+    this._user.set(null);
+    this._selectedUser.set(null);
   }
 
-  /* Get token safely */
+  // === Helpers ===
+
   getToken(): string | null {
-    if (typeof localStorage !== 'undefined') {
-      return localStorage.getItem('jwtToken');
-    }
-    return null;
+    return isBrowser() ? localStorage.getItem('jwtToken') : null;
   }
 
-  /* Get username safely */
   getUsername(): string | null {
-    if (typeof localStorage !== 'undefined') {
-      return localStorage.getItem('username');
-    }
-    return null;
+    return isBrowser() ? localStorage.getItem('username') : null;
   }
 
   getUserId(): number | null {
@@ -154,31 +168,6 @@ export class UserService {
   }
 
   getCachedUser(): User | null {
-    return this.selectedUser();
-  }
-  
-  getSelectedUser(id: string) {
-    return this.http.get<any>(`${this.apiUrl}/${id}`).pipe(
-      tap((raw) => {
-        // Convert raw API response to User model
-        const mappedUser: User = {
-          id: raw.id,
-          username: raw.username,
-          dob: raw.dob,
-          accountCreated: raw.account_created,
-          firstName: raw.first_name,
-          lastName: raw.last_name,
-          address1: raw.address_1,
-          address2: raw.address_2,
-          stateCode: raw.state_code,
-          zipCode: raw.zip_code,
-          countryCode: raw.country_code,
-          passwordHash: raw.password_hash,
-        };
-
-        this._selectedUser.set(mappedUser);
-        this._user.set(mappedUser);
-      }),
-    );
+    return this._selectedUser();
   }
 }

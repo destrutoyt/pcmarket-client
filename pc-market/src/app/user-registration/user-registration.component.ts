@@ -8,7 +8,7 @@ import { Router } from '@angular/router';
   selector: 'app-user-registration',
   imports: [CommonModule, FormsModule],
   templateUrl: './user-registration.component.html',
-  styleUrls: ['./user-registration.component.css'], // fixed typo: styleUrl -> styleUrls
+  styleUrls: ['./user-registration.component.css'],
   standalone: true,
 })
 export class UserRegistrationComponent {
@@ -21,7 +21,7 @@ export class UserRegistrationComponent {
     effect(() => {
       if (this.userService.isLoggedIn() && !this.hasNavigated) {
         this.hasNavigated = true;
-        this.router.navigate(['/profile']); // NgZone.run not needed anymore
+        this.router.navigate(['/']);
       }
     });
   }
@@ -64,6 +64,5 @@ export class UserRegistrationComponent {
   onLogin() {
     const { username, password_hash } = this.loginUser();
     this.userService.login(username, password_hash);
-    // No router.navigate here; effect handles redirection
   }
 }

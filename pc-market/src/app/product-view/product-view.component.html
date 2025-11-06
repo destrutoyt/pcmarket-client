@@ -4,14 +4,15 @@
       <div class="product-view">
         <img [src]="product()!.imageUrl" alt="{{ product()!.productName }}" />
         <div class="product-info">
-          <h2>{{ product()!.productName }}</h2>
-          <p>{{ product()!.description }}</p>
-          <p><strong>Category:</strong> {{ product()!.categoryId }}</p>
-          <p><strong>Seller:</strong> {{ product()!.shopName }}</p>
-          <p><strong>Price:</strong> ${{ product()!.price }}</p>
+          <p class="seller">{{ product()!.shopName }}</p>
+          <h1>{{ product()!.productName }}</h1>
+          <p class="category"><strong>Category:</strong> {{ product()!.category }}</p>
+          <p class="description">{{ product()!.description }}</p>
+          <p class="price">${{ product()!.price }}</p>
           <button class="add-to-cart" (click)="addToCart(product()!)">Add to Cart</button>
-          <button routerLink="/">← Back to Products</button>
+          <button class="return-button" routerLink="/">← Back to Products</button>
         </div>
+
         <div class="product-added-box" id="product-modal">
           <button (click)="closeModal()" class="close-btn">&times;</button>
           <p>Product added to cart!</p>

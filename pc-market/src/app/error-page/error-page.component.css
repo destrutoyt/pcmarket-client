@@ -1,0 +1,103 @@
+/* === BASE LAYOUT === */
+.error-page {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+  text-align: center;
+  padding: 1.5rem;
+  font-family: 'REM', sans-serif;
+  background-color: #fff;
+  color: #333;
+}
+
+/* === IMAGE === */
+.error-img {
+  width: 100%;
+  max-width: 420px;
+  height: auto;
+  margin: 1.5rem 0;
+  transition: transform 0.3s ease;
+}
+.error-img:hover {
+  transform: scale(1.03);
+}
+
+/* === TEXT === */
+.error-page h1 {
+  font-size: 2rem;
+  color: #111;
+  margin-bottom: 0.75rem;
+  line-height: 1.2;
+}
+.error-page p {
+  font-size: 1.05rem;
+  color: #666;
+  max-width: 500px;
+  line-height: 1.6;
+  margin: 0 auto 1.5rem;
+}
+
+/* === BUTTON === */
+.home-button button {
+  background-color: #007bff;
+  color: white;
+  border: none;
+  padding: 0.8rem 1.6rem;
+  font-size: 1rem;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+.home-button button:hover {
+  background-color: #0056b3;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(0, 123, 255, 0.25);
+}
+
+/* === RESPONSIVENESS === */
+
+/* Small devices (phones) */
+@media (max-width: 480px) {
+  .error-page h1 {
+    font-size: 1.6rem;
+  }
+  .error-page p {
+    font-size: 1rem;
+  }
+  .error-img {
+    max-width: 300px;
+  }
+  .home-button button {
+    width: 100%;
+    font-size: 0.95rem;
+  }
+}
+
+/* Tablets (≥600px) */
+@media (min-width: 600px) {
+  .error-page h1 {
+    font-size: 2.2rem;
+  }
+  .error-page p {
+    font-size: 1.1rem;
+  }
+
+  .error-img {
+    max-width: 480px;
+  }
+}
+
+/* Desktops (≥900px) */
+@media (min-width: 900px) {
+  .error-page h1 {
+    font-size: 2.8rem;
+  }
+  .error-page p {
+    font-size: 1.2rem;
+  }
+  .error-img {
+    max-width: 500px;
+  }
+}

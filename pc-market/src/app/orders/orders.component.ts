@@ -16,6 +16,6 @@ export class OrdersComponent implements OnInit {
   loading = this.orderService.loading;
 
   ngOnInit(): void {
-    this.orderService.fetchOrders();
+    this.orderService.getOrdersByUserId();
   }
 }

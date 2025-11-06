@@ -14,7 +14,7 @@ export class SuccessOrderComponent implements OnInit {
   loading = signal(true);
 
   ngOnInit() {
-    this.ordersService.fetchOrders();
+    this.ordersService.getOrdersByUserId();
     setTimeout(() => {
       const orders = this.ordersService.orders();
       if (orders && orders.length > 0) {

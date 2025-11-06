@@ -20,7 +20,7 @@ export class CartService {
 
   // Methods
 
-  fetchCartItems(userId: number) {
+  getCartByUserId(userId: number) {
     this._loading.set(true);
     this._error.set(null);
     this.http.get<Cart>(`${this.apiUrl}/${userId}`).subscribe({

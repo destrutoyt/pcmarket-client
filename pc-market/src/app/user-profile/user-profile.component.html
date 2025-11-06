@@ -1,7 +1,7 @@
 @if (editableUser(); as user) {
   <div class="profile-page">
     <div class="profile-card">
-      <h2 class="profile-title">User Profile</h2>
+      <h2 class="profile-title">Account & Profile Settings</h2>
 
       @if (message()) {
         <div class="feedback-box">
@@ -12,7 +12,7 @@
 
       <!-- Account Information (readonly) -->
       <section>
-        <h3 class="section-title">Account Information</h3>
+        <h3 class="section-title">Account Information (Cannot be edited)</h3>
         <div class="section-divider"></div>
         <div class="form-grid">
           <div class="form-group">
@@ -25,7 +25,7 @@
           </div>
           <div class="form-group">
             <label>Account Created</label>
-            <input type="text" [value]="user.accountCreated | date:'medium'" readonly />
+            <input type="text" [value]="user.account_created | date:'medium'" readonly />
           </div>
         </div>
       </section>
@@ -42,31 +42,31 @@
         <div class="form-grid">
           <div class="form-group">
             <label>First Name</label>
-            <input type="text" [ngModel]="user.firstName" (ngModelChange)="updateField('firstName',$event)" [readonly]="!isEditing()" />
+            <input type="text" [ngModel]="user.first_name" (ngModelChange)="updateField('first_name',$event)" [readonly]="!isEditing()" />
           </div>
           <div class="form-group">
             <label>Last Name</label>
-            <input type="text" [ngModel]="user.lastName" (ngModelChange)="updateField('lastName',$event)" [readonly]="!isEditing()" />
+            <input type="text" [ngModel]="user.last_name" (ngModelChange)="updateField('last_name',$event)" [readonly]="!isEditing()" />
           </div>
           <div class="form-group">
             <label>Address 1</label>
-            <input type="text" [ngModel]="user.address1" (ngModelChange)="updateField('address1',$event)" [readonly]="!isEditing()" />
+            <input type="text" [ngModel]="user.address_1" (ngModelChange)="updateField('address_1',$event)" [readonly]="!isEditing()" />
           </div>
           <div class="form-group">
             <label>Address 2</label>
-            <input type="text" [ngModel]="user.address2" (ngModelChange)="updateField('address2',$event)" [readonly]="!isEditing()" />
+            <input type="text" [ngModel]="user.address_2" (ngModelChange)="updateField('address_2',$event)" [readonly]="!isEditing()" />
           </div>
           <div class="form-group">
             <label>State</label>
-            <input type="text" [ngModel]="user.stateCode" (ngModelChange)="updateField('stateCode',$event)" [readonly]="!isEditing()" [maxlength]="2" />
+            <input type="text" [ngModel]="user.state_code" (ngModelChange)="updateField('state_code',$event)" [readonly]="!isEditing()" [maxlength]="2" />
           </div>
           <div class="form-group">
             <label>ZIP Code</label>
-            <input type="text" [ngModel]="user.zipCode" (ngModelChange)="updateField('zipCode',$event)" [readonly]="!isEditing()" [maxlength]="5"/>
+            <input type="text" [ngModel]="user.zip_code" (ngModelChange)="updateField('zip_code',$event)" [readonly]="!isEditing()" [maxlength]="5"/>
           </div>
           <div class="form-group">
             <label>Country</label>
-            <input type="text" [ngModel]="user.countryCode" (ngModelChange)="updateField('countryCode',$event)" [readonly]="!isEditing()" [maxlength]="2" />
+            <input type="text" [ngModel]="user.country_code" (ngModelChange)="updateField('country_code',$event)" [readonly]="!isEditing()" [maxlength]="2" />
           </div>
         </div>
       </section>

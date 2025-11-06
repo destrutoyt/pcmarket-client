@@ -28,7 +28,7 @@ export class ProductService {
   fetchProducts() {
     this._loading.set(true);
     this._error.set(null);
-    this.http.get<Product[]>(`${this.apiUrl}/productList`).pipe(
+    this.http.get<Product[]>(`${this.apiUrl}`).pipe(
       catchError((err) => {
         console.error('Error fetching products', err);
         this._error.set('Failed to load products');

@@ -1,14 +1,14 @@
 export interface User {
-  id: number;
-  firstName: string;
-  lastName: string;
-  username: string;
-  passwordHash?: string;
-  dob: string;
-  accountCreated: string;
-  address1: string;
-  address2?: string;
-  stateCode: string;
-  zipCode: string;
-  countryCode: string;
+  id: number,
+  username: string,
+  dob: string,
+  first_name: string,
+  last_name: string,
+  password_hash?: string,
+  account_created: string,
+  address_1: string,
+  address_2?: string,
+  state_code: string,
+  zip_code: string,
+  country_code: string
 }

@@ -1,20 +1,21 @@
 /* --- Layout --- */
 .orders-page {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(420px, 1fr));
+  grid-template-columns: 1fr;
   gap: 1.5rem;
   max-width: 1250px;
   margin: 1rem auto;
   padding: 1rem;
-  font-family: 'REM', sans-serif;
+  font-family: "REM", sans-serif;
 }
 
 .orders-title {
-  grid-column: 1 / -1; /* make title span full width */
+  grid-column: 1 / -1;
   text-align: center;
-  font-size: 1.8rem;
+  font-size: 1.6rem;
   font-weight: 600;
   color: #4b0082;
+  margin-bottom: 0.5rem;
 }
 
 /* --- Loading --- */
@@ -48,28 +49,30 @@
 .order-card {
   background: #fff;
   border-radius: 12px;
-  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08); /* subtle default shadow */
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
   padding: 1.5rem;
-  margin-bottom: 1.5rem;
-  transition:
-    transform 0.3s ease,
-    box-shadow 0.3s ease;
-}
-.order-card:hover {
-  transform: translateY(-3px) scale(1.02); /* small lift and scale */
-  box-shadow: 0 8px 20px rgba(137, 47, 255, 0.3); /* colorful glowing effect */
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
+.order-card:hover {
+  transform: translateY(-3px) scale(1.02);
+  box-shadow: 0 8px 20px rgba(137, 47, 255, 0.25);
+}
+
+/* --- Order Header --- */
 .order-header {
   display: flex;
   justify-content: space-between;
   align-items: center;
+  flex-wrap: wrap;
+  gap: 0.75rem;
   margin-bottom: 0.75rem;
 }
 
 .order-header h3 {
   margin: 0;
   color: #892fff;
+  font-size: 1.1rem;
 }
 
 /* --- View Order Button --- */
@@ -78,12 +81,10 @@
   color: #fff;
   border: none;
   border-radius: 8px;
-  padding: 0.4rem 0.9rem;
+  padding: 0.5rem 1rem;
   font-size: 0.9rem;
   cursor: pointer;
-  transition:
-    background 0.2s ease,
-    transform 0.2s ease;
+  transition: background 0.2s ease, transform 0.2s ease;
 }
 
 .view-button:hover {
@@ -96,6 +97,7 @@
   margin-top: 1rem;
   margin-bottom: 0.5rem;
   color: #333;
+  font-size: 1rem;
 }
 
 .section-divider {
@@ -119,6 +121,7 @@
   justify-content: space-between;
   align-items: center;
   flex-wrap: wrap;
+  gap: 0.5rem;
 }
 
 .item-info {
@@ -144,45 +147,133 @@
   gap: 0.5rem;
 }
 
-/* --- Item Status Colors --- */
+/* --- Item Status --- */
 .item-status {
-  padding: 0.25rem 0.6rem; /* balanced vertical/horizontal spacing */
-  border-radius: 12px; /* smooth pill shape */
+  padding: 0.25rem 0.6rem;
+  border-radius: 12px;
   font-size: 0.85rem;
   font-weight: 500;
   text-transform: uppercase;
-  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05); /* subtle depth */
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
 }
 
-/* Status colors with subtle background blend */
 .item-status.delivered {
-  background: #e6f8f0; /* very soft green */
+  background: #e6f8f0;
   color: #2bbf85;
 }
 
 .item-status.shipped {
-  background: #e6f0fa; /* soft blue */
+  background: #e6f0fa;
   color: #2a8adf;
 }
 
 .item-status.processing {
-  background: #f7f3e0; /* soft beige, subtle */
+  background: #f7f3e0;
   color: #d1ae54;
 }
 
 .item-status.pending {
-  background: #f9ecec; /* soft red-pink */
+  background: #f9ecec;
   color: #c04d2b;
 }
 
 .item-status.canceled {
-  background: #fdeaea; /* very light red */
+  background: #fdeaea;
   color: #e63946;
 }
+
 /* --- No Orders --- */
 .no-orders {
   text-align: center;
   color: #777;
   padding: 2rem 0;
   font-style: italic;
+}
+
+/* === Responsive Breakpoints === */
+
+/* --- Small Devices (Phones) --- */
+@media (max-width: 480px) {
+  .orders-title {
+    font-size: 1.4rem;
+  }
+
+  .order-card {
+    padding: 1.2rem;
+  }
+
+  .order-header h3 {
+    font-size: 1rem;
+  }
+
+  .item-card {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .item-meta {
+    justify-content: flex-start;
+    width: 100%;
+  }
+
+  .view-button {
+    width: 100%;
+    text-align: center;
+    font-size: 0.95rem;
+  }
+}
+
+/* --- Tablets ≥600px --- */
+@media (min-width: 600px) {
+  .orders-page {
+    margin-top: 5rem;
+    grid-template-columns: repeat(auto-fit, minmax(420px, 1fr));
+  }
+
+  .orders-title {
+    font-size: 1.6rem;
+  }
+
+  .order-card {
+    padding: 1.5rem;
+  }
+
+  .order-header h3 {
+    font-size: 1.1rem;
+  }
+}
+
+/* --- Desktops ≥900px --- */
+@media (min-width: 900px) {
+  .orders-title {
+    font-size: 1.8rem;
+  }
+
+  .order-card {
+    padding: 2rem;
+  }
+
+  .order-header h3 {
+    font-size: 1.2rem;
+  }
+
+  .item-card {
+    padding: 0.8rem 1rem;
+  }
+}
+
+/* --- Large Screens ≥1200px --- */
+@media (min-width: 1200px) {
+  .orders-page {
+    gap: 2rem;
+    padding: 2rem;
+  }
+
+  .orders-title {
+    font-size: 2rem;
+  }
+
+  .order-card {
+    border-radius: 16px;
+  }
 }

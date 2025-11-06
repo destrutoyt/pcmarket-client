@@ -17,28 +17,27 @@ export class UserProfileComponent {
   private router = inject(Router);
   private userService = inject(UserService);
 
-  // Signals to hold user data
-  selectedUser = signal<User | null>(null);
+  // Signals
   message = signal<string | null>(null);
   isEditingSignal = signal<boolean>(false);
 
   originalUser = signal<User | null>(null);
   editableUser = signal<User | null>(null);
 
-  // Computed signal to track if any editable field changed
+  // Computed signal — detects if any profile field changed
   isChanged = computed(() => {
     const orig = this.originalUser();
     const edit = this.editableUser();
     if (!orig || !edit) return false;
 
     return (
-      orig.firstName !== edit.firstName ||
-      orig.lastName !== edit.lastName ||
-      orig.address1 !== edit.address1 ||
-      orig.address2 !== edit.address2 ||
-      orig.stateCode !== edit.stateCode ||
-      orig.zipCode !== edit.zipCode ||
-      orig.countryCode !== edit.countryCode
+      orig.first_name !== edit.first_name ||
+      orig.last_name !== edit.last_name ||
+      orig.address_1 !== edit.address_1 ||
+      orig.address_2 !== edit.address_2 ||
+      orig.state_code !== edit.state_code ||
+      orig.zip_code !== edit.zip_code ||
+      orig.country_code !== edit.country_code
     );
   });
 
@@ -46,34 +45,29 @@ export class UserProfileComponent {
     this.loadUserData();
   }
 
-  private loadUserData() {
-    const userId = this.userService.getUserId()?.toString() || '';
+  /** Load user profile data */
+  private loadUserData(): void {
+    const userId = this.userService.getUserId()?.toString();
+    if (!userId) {
+      this.message.set('No user ID found.');
+      return;
+    }
+
     this.userService.getSelectedUser(userId).subscribe({
-      next: (data: any) => {
-        const user: User = {
-          id: data.id,
-          username: data.username,
-          dob: data.dob,
-          firstName: data.first_name,
-          lastName: data.last_name,
-          address1: data.address_1,
-          address2: data.address_2,
-          stateCode: data.state_code,
-          zipCode: data.zip_code,
-          countryCode: data.country_code,
-          accountCreated: data.account_created,
-        };
+      next: (user: User) => {
         this.originalUser.set(user);
-        this.editableUser.set({ ...user });
+        this.editableUser.set({ ...user }); // clone for editing
       },
       error: () => this.message.set('Unable to load user data.'),
     });
   }
-  updateUser() {
+
+  /** Update user profile */
+  updateUser(): void {
     const updated = this.editableUser();
     if (!updated) return;
-
-    this.userService.updateUser(updated.id!, updated).subscribe({
+    console.warn('Updating user:', updated);
+    this.userService.patchUser(updated.id, updated).subscribe({
       next: () => {
         this.originalUser.set({ ...updated });
         this.message.set('Profile updated successfully.');
@@ -82,20 +76,30 @@ export class UserProfileComponent {
       error: () => this.message.set('Failed to update user.'),
     });
   }
-  updateField<K extends keyof User>(key: K, value: User[K]) {
+
+  /** Update a single field reactively */
+  updateField<K extends keyof User>(key: K, value: User[K]): void {
     const current = this.editableUser();
     if (!current) return;
     this.editableUser.set({ ...current, [key]: value });
   }
-  goToOrders() {
+
+  /** Navigate to Orders page */
+  goToOrders(): void {
     this.router.navigate(['/orders']);
   }
 
-  deleteAccount() {
-    if (!confirm('Are you sure you want to delete your account? This action cannot be undone.'))
-      return;
+  /** Delete user account */
+  deleteAccount(): void {
+    const user = this.originalUser();
+    if (!user) return;
 
-    this.userService.deleteUser(this.selectedUser()?.id || 0).subscribe({
+    const confirmDelete = confirm(
+      'Are you sure you want to delete your account? This action cannot be undone.'
+    );
+    if (!confirmDelete) return;
+
+    this.userService.deleteUser(user.id).subscribe({
       next: () => {
         this.userService.logout();
         this.router.navigate(['/register']);
@@ -104,24 +108,23 @@ export class UserProfileComponent {
     });
   }
 
-  // Method to check if editing mode is active
-  isEditing() {
+  /** Returns true if currently editing */
+  isEditing(): boolean {
     return this.isEditingSignal();
   }
 
-  // Method to toggle editing mode
-  toggleEdit() {
+  /** Toggle edit mode */
+  toggleEdit(): void {
     const currentlyEditing = this.isEditingSignal();
 
     if (currentlyEditing) {
-      // Cancel editing — revert changes
+      // Cancel editing → revert to original user
       const original = this.originalUser();
       if (original) {
         this.editableUser.set({ ...original });
       }
     }
 
-    // Flip the editing state
     this.isEditingSignal.set(!currentlyEditing);
   }
 }

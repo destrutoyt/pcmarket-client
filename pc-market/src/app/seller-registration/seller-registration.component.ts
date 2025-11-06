@@ -1,8 +1,9 @@
 import { Component } from '@angular/core';
+import { RouterLink } from "@angular/router";
 
 @Component({
   selector: 'app-seller-registration',
-  imports: [],
+  imports: [RouterLink],
   templateUrl: './seller-registration.component.html',
   styleUrl: './seller-registration.component.css',
 })

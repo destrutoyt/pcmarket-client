@@ -3,36 +3,45 @@
     <ul class="navbar-container">
       <!-- Left: Logo -->
       <li class="logo-container">
-        <a routerLink="/"><img class="logo" src="/logos/app-logo.svg" alt="PC Market Logo" /></a>
+        <a routerLink="/">
+          <img class="logo" src="/logos/app-logo.svg" alt="PC Market Logo" />
+        </a>
       </li>
 
+      <!-- Burger Menu (mobile only) -->
+      <button class="burger" (click)="toggleMobileNav()">☰</button>
+
       <!-- Center: Navigation Links -->
-      <div class="nav-links-center">
+      <div class="nav-links-center" [class.show]="mobileNavOpen">
         <a class="nav-link" routerLink="/about" routerLinkActive="active">About Us</a>
         <a class="nav-link" routerLink="/seller-register" routerLinkActive="active">Become a Seller</a>
-        <a class="nav-link" style="cursor: none" routerLink="/" routerLinkActive="active">Contact</a>
+        <a class="nav-link" routerLink="/" routerLinkActive="active">Contact</a>
       </div>
 
       <!-- Right: User Menu -->
-      <li class="user-menu" *ngIf="isLoggedIn(); else loginLink">
-        <button class="user-button" (click)="toggleMenu()">
-          Welcome {{ username() }}! <span class="arrow">▼</span>
-        </button>
-        <ul class="dropdown" [class.show]="menuOpen" (mouseleave)="closeMenu()">
-          <li><a routerLink="/profile">Profile</a></li>
-          <li><a routerLink="/orders">Orders</a></li>
-          <li><a (click)="signOut()">Sign Out</a></li>
-        </ul>
-        <a routerLink="/cart"
-          ><img class="cart-logo" src="/logos/cart-logo.svg" alt="Cart Logo"
-        /></a>
+      <li class="user-menu">
+        @if (isLoggedIn()) {
+          <div class="user-logged-in">
+            <button class="user-button" (click)="toggleMenu()">
+              Welcome&nbsp;{{ username() }}! <span class="arrow">▼</span>
+            </button>
+            <ul class="dropdown" [class.show]="menuOpen" (mouseleave)="closeMenu()">
+              <li><a routerLink="/profile">Profile</a></li>
+              <li><a routerLink="/orders">Orders</a></li>
+              <li><a (click)="signOut()">Sign Out</a></li>
+            </ul>
+            <a routerLink="/cart">
+              <img class="cart-logo" src="/logos/cart-logo.svg" alt="Cart Logo" />
+            </a>
+          </div>
+        } @else {
+          <div class="user-logged-out">
+            <a class="nav-link login-link" routerLink="/register" routerLinkActive="active">
+              Sign In / Log In
+            </a>
+          </div>
+        }
       </li>
-
-      <ng-template #loginLink>
-        <li>
-          <a class="nav-link" routerLink="/register" routerLinkActive="active">Sign In / Log In</a>
-        </li>
-      </ng-template>
     </ul>
   </nav>
 </header>

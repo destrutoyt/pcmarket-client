@@ -1,264 +1,337 @@
-/* --- BASE LAYOUT (Following User Constraints) --- */
+/* ========================================================= */
+/* === BASE (MOBILE-FIRST) === */
+/* ========================================================= */
 .main-wrapper {
   display: flex;
   justify-content: center;
   align-items: center;
   min-height: 70vh;
-  padding: 40px 0;
+  padding: 20px 0;
+  margin-top: 5rem;
+  background: #fff;
+  font-family: "REM", sans-serif;
 }
 
-/* Auth Container: The overall box holding the forms */
+/* --- Auth Container --- */
 .auth-container {
   display: flex;
-  flex-direction: row; 
-  width: 90%; 
-  max-width: 1200px; /* Increased Max Width */
-  height: 800px; /* Increased Height */
-  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+  flex-direction: column;
+  width: 95%;
+  max-width: 520px;
+  background: #fff;
   border-radius: 12px;
   overflow: hidden;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
   position: relative;
+  transition: all 0.3s ease;
 }
 
-/* --- FORM PANELS --- */
+/* ========================================================= */
+/* === FORM PANELS === */
+/* ========================================================= */
 .container-child.form-panel {
-  width: 45%;
-  padding: 40px;
-  position: absolute;
-  top: 0;
-  height: 100%;
-  z-index: 10;
-  background-color: white;
-  
-  /* Transition for smooth sliding (Forms slide in/out of the slide-panel) */
-  transition: transform 0.6s ease-in-out;
-}
-
-/* --- REGISTRATION FORM SPECIFIC STYLES (Vertical Scroll and Grid) --- */
-.registration-panel {
-  left: 0;
-  transform: translateX(-100%); 
-  overflow-y: auto; 
-}
-.registration-panel.active {
-  transform: translateX(0);
-}
-
-.login-panel {
-  right: 0;
-  transform: translateX(0); 
-}
-
-/* --- SLIDING PANEL (The moving background) --- */
-.slide-panel {
-  width: 50%;
-  height: 100%;
-  position: absolute;
-  top: 0;
-  left: 50%;
-  z-index: 20;
-  background: linear-gradient(120deg, #87f8cd, #892fff);
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
-  transition: transform 0.6s ease-in-out; 
-}
-
-/* Moves the panel to the left half */
-.slide-panel.move-right {
-  transform: translateX(-100%); 
-}
-
-/* --- SLIDE CONTENT --- */
-.slide-content {
-  color: #fff;
-  padding: 30px;
-  text-align: center;
-  height: 100%;
+  width: 100%;
+  padding: 30px 28px;
+  background-color: #fff;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-}
-.slide-content h2 {
-  font-size: 2rem;
-  margin-bottom: 10px;
-}
-.slide-content p {
-  font-size: 1rem;
-  margin-bottom: 25px;
-  line-height: 1.4;
-  color: rgba(255, 255, 255, 0.8);
-}
-
-/* --- FORM ELEMENTS --- */
-.form-panel h2 {
-  font-size: 2.2rem;
-  color: #333;
-  margin-bottom: 30px;
+  transition: transform 0.6s ease-in-out;
   text-align: center;
 }
-.registration-panel form {
-  display: grid;
-  grid-template-columns: 1fr 1fr; 
-  gap: 20px 20px;
+
+.form-panel h2 {
+  font-size: 1.9rem;
+  margin-bottom: 25px;
+  color: #333;
 }
 
-/* Reset login panel form to simple flex layout (as it only has 2 inputs) */
+.registration-panel form,
+.login-panel form {
+  width: 100%;
+  max-width: 460px; /* slightly wider forms */
+}
+
+/* ========================================================= */
+/* === REGISTRATION FORM GRID === */
+/* ========================================================= */
+
+.registration-panel form {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 18px 24px;
+}
+
+/* First Name + Last Name | Username + Password */
+.registration-panel .input-group:nth-child(1),
+.registration-panel .input-group:nth-child(2),
+.registration-panel .input-group:nth-child(3),
+.registration-panel .input-group:nth-child(4) {
+  grid-column: span 1;
+}
+
+/* Everything else full width */
+.registration-panel .input-group:nth-child(n + 5),
+.registration-panel .cta-button {
+  grid-column: span 2;
+}
+
+/* ========================================================= */
+/* === LOGIN FORM === */
+/* ========================================================= */
+
 .login-panel form {
   display: flex;
   flex-direction: column;
-  gap: 20px;
+  gap: 18px;
+  align-items: stretch;
+  justify-content: center;
+  width: 100%;
+  max-width: 440px;
 }
 
-/* Input Group adjustments */
+/* --- Input Fields --- */
 .input-group {
-  margin-bottom: 0;
   width: 100%;
 }
 
 .input-group input {
   width: 100%;
-  padding: 12px 15px;
+  padding: 14px 16px;
   border: 1px solid #ccc;
-  border-radius: 6px;
-  font-size: 1rem;
-  box-sizing: border-box;
+  border-radius: 10px;
+  font-size: 1.05rem;
+  transition: all 0.25s ease;
 }
 
-/* Registration: Grid Layout Logic (based on 11 inputs + 1 button) */
-
-/* Fields that should span 1 column (side-by-side) */
-.registration-panel .input-group:nth-child(1),  /* First Name */
-.registration-panel .input-group:nth-child(2),  /* Last Name */
-.registration-panel .input-group:nth-child(9),  /* State */
-.registration-panel .input-group:nth-child(10)  /* Zip Code */
-{
-    grid-column: span 1; 
+.input-group input:focus {
+  outline: none;
+  border-color: #6c5ce7;
+  box-shadow: 0 0 4px rgba(108, 92, 231, 0.3);
 }
 
-/* Fields that should span both columns (Full width) */
-.registration-panel .input-group:nth-child(3),  /* Username/Email */
-.registration-panel .input-group:nth-child(4),  /* Password */
-.registration-panel .input-group:nth-child(5),  /* Date of Birth */
-.registration-panel .input-group:nth-child(6),  /* Address */
-.registration-panel .input-group:nth-child(7),  /* Apt/Suite (optional) */
-.registration-panel .input-group:nth-child(8),  /* Country */
-.registration-panel .cta-button {
-    grid-column: span 2; 
-}
-
-
+/* --- Forgot password --- */
 .forgot-password {
+  display: block;
+  text-align: right;
   font-size: 0.9rem;
   color: #007bff;
   text-decoration: none;
-  margin-bottom: 15px;
-  display: block;
-  text-align: right;
-  grid-column: span 2;
+  margin-bottom: 10px;
 }
 
-/* --- BUTTONS --- */
-.auth-button {
-  margin-top: 20px;
+/* ========================================================= */
+/* === SLIDE PANEL === */
+/* ========================================================= */
+
+.slide-panel {
+  width: 100%;
+  background: linear-gradient(120deg, #87f8cd, #892fff);
+  text-align: center;
+  color: #fff;
+  padding: 40px 20px;
+  transition: transform 0.6s ease-in-out;
+  z-index: 5;
+}
+
+.slide-panel.move-right {
+  transform: translateX(0);
+}
+
+.slide-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.slide-content h2 {
+  font-size: 1.6rem;
+  margin-bottom: 10px;
+}
+
+.slide-content p {
+  font-size: 0.95rem;
+  line-height: 1.4;
+  color: rgba(255, 255, 255, 0.9);
+  margin-bottom: 20px;
+}
+
+/* ========================================================= */
+/* === BUTTONS === */
+/* ========================================================= */
+
+.cta-button.auth-button {
+  display: inline-block;
+  background-color: #52dada;
+  color: #fff;
+  border: none;
+  border-radius: 25px;
+  padding: 15px;
+  font-size: 1.05rem;
+  font-weight: 600;
+  cursor: pointer;
+  width: 100%;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.cta-button.auth-button:hover {
+  background-color: rgb(40, 168, 115);
+  transform: translateY(-2px);
 }
 
 .ghost-button {
   background-color: transparent;
   border: 2px solid #fff;
   color: #fff;
-  padding: 10px 40px;
-  border-radius: 25px;
+  padding: 12px 36px;
+  border-radius: 30px;
   font-size: 1rem;
   font-weight: bold;
   cursor: pointer;
-  transition: background-color 0.3s ease, color 0.3s ease;
+  transition: background-color 0.3s, color 0.3s, transform 0.25s ease;
 }
+
 .ghost-button:hover {
   background-color: #fff;
-  color: #892fff; 
+  color: #892fff;
+  transform: scale(1.05);
 }
 
-/* --- OVERRIDE STYLES FOR AUTH CONTEXT --- */
-.cta-button.auth-button {
-  background-color: #52dada;
-  transition: background-color 0.3s ease;
-  width: 100%;
-  border-radius: 20px;
-  padding: 20px;
-  font-size: 1.1rem;
-}
-.cta-button.auth-button:hover {
-  background-color: rgb(40, 168, 115);
-  transform: translateY(0);
-}
-
-
-/* ---------------------------------------------------- */
-/* --- RESPONSIVENESS (Mobile/Tablet Layout) --- */
-/* ---------------------------------------------------- */
-
-@media (max-width: 960px) {
-  /* Increase container height to fit both forms stacked */
+/* ========================================================= */
+/* === TABLET ≥ 600px === */
+/* ========================================================= */
+@media (min-width: 600px) {
   .auth-container {
-    flex-direction: column;
-    height: 900px; 
+    max-width: 750px;
   }
 
-  /* Form Panels: Take up full width when stacked */
-  .container-child.form-panel {
-    width: 100%;
-    position: relative; /* Remove absolute positioning when stacked */
-    padding: 30px;
-    height: auto;
-  }
-  
-  /* Reset Registration Grid on small screens to be a single column */
-  .registration-panel form {
-    grid-template-columns: 1fr;
-    gap: 10px 0;
-  }
-  
-  /* Ensure all inputs span the full width in mobile view */
-  .registration-panel .input-group,
-  .registration-panel .input-group:nth-child(4),
-  .registration-panel .input-group:nth-child(6),
-  .registration-panel .input-group:nth-child(7),
-  .registration-panel .input-group:nth-child(8),
-  .registration-panel .input-group:nth-child(9),
-  .registration-panel .input-group:nth-child(10),
-  .registration-panel .input-group:nth-child(1),
-  .registration-panel .input-group:nth-child(2),
-  .registration-panel .input-group:nth-child(3),
-  .registration-panel .input-group:nth-child(5) {
-      grid-column: span 1; 
+  .form-panel h2 {
+    font-size: 2rem;
   }
 
-  /* Adjust registration panel for mobile (starts on top) */
-  .registration-panel {
-    order: 1; /* Place registration first */
-    transform: translateX(0) !important; /* Keep it always visible */
-  }
-
-  /* Adjust login panel for mobile (starts below registration) */
-  .login-panel {
-    order: 3; /* Place login below the slider panel */
-    transform: translateX(0) !important; /* Keep it always visible */
-  }
-  
-  /* SLIDING PANEL: Placed between the two forms */
   .slide-panel {
-    order: 2; /* Place slider between forms */
-    width: 100%;
-    height: 200px; /* Reduced height for the button/text */
-    left: 0; /* Align to the left edge */
-    top: auto; /* Reset top positioning */
-    z-index: 10; 
-    transform: translateX(0) !important; /* Ensure it stays in place */
+    padding: 50px 30px;
   }
-  
-  /* SLIDE CONTENT: Ensure text fits well */
-  .slide-content {
+
+  .slide-content h2 {
+    font-size: 1.9rem;
+  }
+
+  .slide-content p {
+    font-size: 1rem;
+  }
+}
+
+/* ========================================================= */
+/* === DESKTOP ≥ 900px === */
+/* ========================================================= */
+@media (min-width: 900px) {
+  .auth-container {
+    flex-direction: row;
+    max-width: 1200px;
+    height: 720px;
+  }
+
+  .container-child.form-panel {
+    width: 45%;
+    height: 100%;
+    position: absolute;
+    top: 0;
+    background-color: #fff;
+    z-index: 10;
+    display: flex;
+    flex-direction: column;
+    justify-content: center; /* Center vertically */
+    align-items: center; /* Center horizontally */
+    text-align: center;
+  }
+
+  /* Registration hidden left */
+  .registration-panel {
+    left: 0;
+    transform: translateX(-100%);
+  }
+  .registration-panel.active {
+    transform: translateX(0);
+  }
+
+  /* Login visible right */
+  .login-panel {
+    right: 0;
+    transform: translateX(0);
+  }
+
+  /* Sliding Panel Center */
+  .slide-panel {
+    position: absolute;
+    top: 0;
+    left: 50%;
+    width: 50%;
+    height: 100%;
+    background: linear-gradient(120deg, #87f8cd, #892fff);
+    transition: transform 0.6s ease-in-out;
+    z-index: 20;
+    display: flex;
     justify-content: center;
-    padding: 20px;
+    align-items: center;
+  }
+
+  .slide-panel.move-right {
+    transform: translateX(-100%);
+  }
+
+  .slide-content {
+    max-width: 420px;
+    padding: 40px;
+  }
+
+  .slide-content h2 {
+    font-size: 2.1rem;
+  }
+
+  .slide-content p {
+    font-size: 1rem;
+  }
+}
+
+/* ========================================================= */
+/* === XL DESKTOP ≥ 1200px === */
+/* ========================================================= */
+@media (min-width: 1200px) {
+  .auth-container {
+    height: 800px;
+  }
+
+  .form-panel h2,
+  .slide-content h2 {
+    font-size: 2.3rem;
+  }
+
+  .slide-content p {
+    font-size: 1.1rem;
+  }
+}
+
+/* ========================================================= */
+/* === SMALL PHONES ≤ 400px === */
+/* ========================================================= */
+@media (max-width: 400px) {
+  .form-panel h2 {
+    font-size: 1.5rem;
+  }
+  .slide-content h2 {
+    font-size: 1.3rem;
+  }
+  .slide-content p {
+    font-size: 0.85rem;
+  }
+  .cta-button.auth-button {
+    font-size: 0.95rem;
+  }
+  .ghost-button {
+    padding: 8px 20px;
+    font-size: 0.9rem;
   }
 }

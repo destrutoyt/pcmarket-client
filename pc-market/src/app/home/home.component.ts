@@ -1,14 +1,14 @@
 import { Component, OnInit, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ProductService } from '../services/product.service';
-import { Router } from '@angular/router';
+import { Router, RouterLink } from '@angular/router';
 import { Product } from '../models/product.model';
 import { CartService } from '../services/cart.service';
 
 @Component({
   selector: 'app-home',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, RouterLink],
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.css'],
 })

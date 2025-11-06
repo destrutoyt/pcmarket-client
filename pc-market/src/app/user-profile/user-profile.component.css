@@ -1,9 +1,9 @@
-/* --- Layout --- */
+/* === Layout === */
 .profile-page {
   display: flex;
   justify-content: center;
   align-items: flex-start;
-  padding: 2rem 1rem;
+  padding: 1.5rem 1rem;
   background: #ffffff;
   min-height: 100vh;
   font-family: "REM", sans-serif;
@@ -11,10 +11,9 @@
 
 .profile-card {
   width: 100%;
-  max-width: 750px;
   background: #ffffff;
   border-radius: 20px;
-  padding: 2rem;
+  padding: 1.5rem;
   box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
   border: 3px solid transparent;
   background-image: linear-gradient(white, white),
@@ -29,18 +28,20 @@
   box-shadow: 0 15px 35px rgba(0, 0, 0, 0.15);
 }
 
-/* --- Titles --- */
+/* === Titles === */
 .profile-title {
-  font-size: 1.8rem;
+  font-size: 1.6rem;
   font-weight: 700;
   margin-bottom: 1rem;
   text-align: center;
+  color: #222;
 }
 
 .section-title {
-  font-size: 1.1rem;
+  font-size: 1.05rem;
   font-weight: 700;
   margin-top: 1.5rem;
+  color: #333;
 }
 
 .section-divider {
@@ -49,7 +50,7 @@
   margin: 0.5rem 0 1rem 0;
 }
 
-/* --- Form Grid --- */
+/* === Form Grid === */
 .form-grid {
   display: grid;
   grid-template-columns: 1fr;
@@ -70,6 +71,7 @@
 label {
   font-weight: 600;
   margin-bottom: 0.25rem;
+  color: #333;
 }
 
 input {
@@ -83,17 +85,17 @@ input {
 input:focus {
   outline: none;
   border-color: #6c5ce7;
-  box-shadow: 0 0 6px rgba(108, 92, 231, 0.5);
+  box-shadow: 0 0 6px rgba(108, 92, 231, 0.4);
   transform: scale(1.02);
 }
 
 input[readonly] {
-  background-color: #f0f0f0;
+  background-color: #f5f5f5;
   color: #777;
   cursor: not-allowed;
 }
 
-/* --- Buttons --- */
+/* === Action Buttons === */
 .action-row {
   margin-top: 2rem;
   display: flex;
@@ -111,10 +113,11 @@ input[readonly] {
 
 .button-group {
   display: flex;
+  flex-wrap: wrap;
   gap: 1rem;
 }
 
-/* Save button */
+/* --- Save Button --- */
 .save-button {
   padding: 0.7rem 1.5rem;
   border: none;
@@ -137,7 +140,7 @@ input[readonly] {
   transform: translateY(-2px);
 }
 
-/* Orders Button */
+/* --- Orders Button --- */
 .orders-button {
   padding: 0.7rem 1.5rem;
   border: none;
@@ -155,7 +158,7 @@ input[readonly] {
   transform: scale(1.05);
 }
 
-/* Pulse animation */
+/* --- Pulse Animation --- */
 @keyframes pulse {
   0% {
     box-shadow: 0 0 0 0 rgba(0, 184, 148, 0.5);
@@ -168,7 +171,7 @@ input[readonly] {
   }
 }
 
-/* Delete Button */
+/* --- Delete Button --- */
 .delete-button {
   padding: 0.7rem 1.5rem;
   border-radius: 999px;
@@ -185,7 +188,7 @@ input[readonly] {
   transform: scale(1.05);
 }
 
-/* --- Feedback Box --- */
+/* === Feedback Box === */
 .feedback-box {
   background-color: #f0e6ff;
   border-left: 4px solid #892fff;
@@ -201,7 +204,7 @@ input[readonly] {
   margin-right: 0.5rem;
 }
 
-/* --- Edit Button --- */
+/* === Edit Button === */
 .edit-button {
   padding: 0.5rem 1rem;
   border: none;
@@ -218,7 +221,7 @@ input[readonly] {
   transform: scale(1.05);
 }
 
-/* --- Loading --- */
+/* === Loading === */
 .loading {
   display: flex;
   flex-direction: column;
@@ -241,5 +244,98 @@ input[readonly] {
 @keyframes spin {
   to {
     transform: rotate(360deg);
+  }
+}
+
+/* === Responsive Breakpoints === */
+
+/* Small devices (phones) */
+@media (max-width: 480px) {
+  .profile-card {
+    padding: 1rem;
+    border-radius: 15px;
+  }
+
+  .profile-title {
+    font-size: 1.4rem;
+  }
+
+  .section-title {
+    font-size: 1rem;
+  }
+
+  input {
+    font-size: 0.95rem;
+  }
+
+  .save-button,
+  .orders-button,
+  .delete-button {
+    width: 100%;
+    text-align: center;
+  }
+
+  .button-group {
+    flex-direction: column;
+    width: 100%;
+  }
+}
+
+/* Tablets (≥600px) */
+@media (min-width: 600px) {
+  .profile-card {
+    padding: 2rem;
+  }
+
+  .profile-title {
+    font-size: 1.8rem;
+  }
+
+  .section-title {
+    font-size: 1.1rem;
+  }
+}
+
+/* Desktops (≥900px) */
+@media (min-width: 900px) {
+  .profile-page {
+    padding: 3rem 2rem;
+    margin-top: 5rem;
+  }
+
+  .profile-card {
+    max-width: 1200px;
+    padding: 2.5rem;
+  }
+
+  .profile-title {
+    font-size: 2rem;
+  }
+
+  .form-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .action-row {
+    gap: 1.5rem;
+  }
+}
+
+/* Large screens (≥1200px) */
+@media (min-width: 1200px) {
+  .profile-page {
+    padding: 4rem 3rem;
+  }
+
+  .profile-card {
+    padding: 3rem;
+  }
+
+  .profile-title {
+    font-size: 2.2rem;
+  }
+
+  .section-title {
+    font-size: 1.15rem;
   }
 }

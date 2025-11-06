@@ -244,6 +244,9 @@ main {
 
 /* ===== TABLET (≥600px) ===== */
 @media (min-width: 600px) {
+  .navbar {
+    padding: 1rem;
+  }
   .nav-link {
     font-size: 1rem;
   }

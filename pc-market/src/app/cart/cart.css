@@ -1,3 +1,10 @@
+/* =============== Base / Resets =============== */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
 /* === NEW LAYOUT WRAPPER === */
 .cart-layout {
   display: flex;
@@ -5,6 +12,7 @@
   align-items: flex-start;
 }
 
+/* Cards */
 .cart-box {
   background: #fff;
   border-radius: 12px;
@@ -12,13 +20,15 @@
   box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
 }
 
+/* Left list column */
 .left-box {
   flex: 2;
-  max-height: 84vh; /* choose height you want */
+  max-height: 84vh;              /* keep your scrolling height */
   overflow-y: auto;
-  padding-right: 0.5rem; /* prevents cut-off on scrollbar */
+  padding-right: 0.5rem;         /* prevents cut-off on scrollbar */
 }
 
+/* Right summary column */
 .right-box {
   flex: 1;
   display: flex;
@@ -29,10 +39,11 @@
 /* === MAIN CART CONTAINER === */
 .cart-container {
   max-width: 1200px;
-  margin: 50px auto 50px auto;
+  margin: 50px auto;
   padding: 2rem;
   border: 3px solid transparent;
-  background-image: linear-gradient(white, white), linear-gradient(120deg, #87f8cd, #892fff);
+  background-image: linear-gradient(white, white),
+    linear-gradient(120deg, #87f8cd, #892fff);
   background-origin: border-box;
   background-clip: padding-box, border-box;
   border-radius: 12px;
@@ -69,63 +80,76 @@ h2 {
   margin-right: 0.5rem;
 }
 
-/* CART PRODUCTS */
+/* =============== Product list =============== */
 .cart-products ul {
   list-style: none;
   margin: 0;
   padding: 0;
 }
+
 .cart-product {
-  display: flex;
+  display: flex;                 /* keep your layout */
   justify-content: flex-start;
-  gap: 1rem;
   align-items: center;
+  gap: 1rem;
   padding: 1rem 0;
   border-bottom: 1px solid #e5e7eb;
-}
-.remove-item {
-  padding: 10px;
-  border: 1px solid red;
-  border-radius: 8px;
-  margin-left: auto;
-  color: red;
-  cursor: pointer;
-  font-weight: 600;
-  transition: all 0.3s;
-}
-.remove-item:hover {
-  background-color: rgba(255, 38, 0, 0.562);
-  color: rgb(77, 8, 8);
-}
-.product-info p {
-  margin: 0.2rem 0;
+
+  /* Desktop/wide: keep in one line so Remove stays to the right */
+  flex-wrap: nowrap;
 }
 
+/* Image cell */
 .product-image-placeholder {
   width: 120px;
   height: 120px;
   background-color: #f0f0f0;
   border-radius: 8px;
   margin-right: 1rem;
-  overflow: hidden; /* lets the img stay inside */
+  overflow: hidden;              /* lets the img stay inside */
   display: flex;
   align-items: center;
   justify-content: center;
 }
-
 .product-image-placeholder img {
   width: 100%;
   height: 100%;
-  object-fit: cover; /* crop nicely without distortion */
+  object-fit: cover;             /* crop nicely without distortion */
   display: block;
 }
-.centered-title {
-  text-align: center;
+
+/* Details cell */
+.product-info {
+  display: block;                /* keep as block; do not change layout */
+  min-width: 0;                  /* prevents overflow pushing the button */
+  flex: 1 1 auto;                /* allow details to shrink/grow */
 }
+.product-info p {
+  margin: 0.2rem 0;
+}
+
+/* Remove button cell */
+.remove-item {
+  padding: 10px;
+  border: 1px solid red;
+  border-radius: 8px;
+  margin-left: auto;             /* pins to far right when in same row */
+  color: red;
+  cursor: pointer;
+  font-weight: 600;
+  transition: all 0.3s;
+  white-space: nowrap;           /* keeps the button compact */
+}
+.remove-item:hover {
+  background-color: rgba(255, 38, 0, 0.12);
+  color: rgb(143, 31, 39);
+}
+
+/* Title helpers */
+.centered-title { text-align: center; }
+
 /* TOTAL AMOUNT */
-.total-amount {
-  text-align: center;
-}
+.total-amount { text-align: center; }
 .total-amount h2 span {
   color: green;
   font-weight: bold;
@@ -147,9 +171,7 @@ h2 {
   border-radius: 8px;
   border: 1px solid #ccc;
   font-size: 1rem;
-  transition:
-    border 0.3s,
-    box-shadow 0.3s;
+  transition: border 0.3s, box-shadow 0.3s;
 }
 .form-group input:focus {
   border-color: #2a9d8f;
@@ -166,10 +188,11 @@ input[readonly] {
   color: #777;
   cursor: not-allowed;
 }
+
 .shipping-header {
   display: flex;
   justify-content: space-between; /* Title on left, button on right */
-  align-items: center; /* Vertically center button with title */
+  align-items: center;            /* Vertically center button with title */
   margin-bottom: 1rem;
 }
 
@@ -183,11 +206,11 @@ input[readonly] {
   cursor: pointer;
   transition: all 0.3s ease;
 }
-
 .edit-button:hover {
   background-color: #4e3ac1;
   transform: scale(1.05);
 }
+
 /* SUBMIT BUTTON */
 .submit-order {
   margin-top: 2rem;
@@ -202,10 +225,7 @@ input[readonly] {
   border: none;
   border-radius: 12px;
   cursor: pointer;
-  transition:
-    transform 0.3s,
-    filter 0.3s,
-    background-position 0.5s;
+  transition: transform 0.3s, filter 0.3s, background-position 0.5s;
   animation: gradientShift 4s ease infinite;
 }
 .submit-order:hover {
@@ -226,15 +246,9 @@ input[readonly] {
   cursor: not-allowed;
 }
 @keyframes gradientShift {
-  0% {
-    background-position: 0% 50%;
-  }
-  50% {
-    background-position: 100% 50%;
-  }
-  100% {
-    background-position: 0% 50%;
-  }
+  0%   { background-position: 0% 50%; }
+  50%  { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
 }
 
 /* LOADING */
@@ -255,33 +269,92 @@ input[readonly] {
   animation: spin 1s linear infinite;
   margin-bottom: 1rem;
 }
-@keyframes spin {
-  to {
-    transform: rotate(360deg);
-  }
+@keyframes spin { to { transform: rotate(360deg); } }
+
+/* =============== Responsive =============== */
+
+/* Large desktops: keep rows tidy, allow a bit more room */
+@media (min-width: 1200px) {
+  .cart-container { padding: 2.25rem; }
+  .product-image-placeholder { width: 140px; height: 140px; }
 }
 
-/* RESPONSIVE */
+/* Desktops */
+@media (min-width: 900px) and (max-width: 1199.98px) {
+  .product-image-placeholder { width: 130px; height: 130px; }
+}
+
+/* Tablets */
+@media (min-width: 769px) and (max-width: 899.98px) {
+  .product-image-placeholder { width: 120px; height: 120px; }
+  .cart-container { padding: 1.75rem; }
+}
+
+/* <= 768px: stack columns; stack each product row */
 @media (max-width: 768px) {
   .cart-layout {
-    flex-direction: column;
+    flex-direction: column;      /* left/right boxes stack */
+    gap: 1.25rem;
   }
+
+  .cart-container {
+    margin: 30px auto;
+    padding: 1.25rem;
+  }
+
+  .left-box {
+    max-height: none;            /* allow natural height on small screens */
+    padding-right: 0;            /* no fake gutter */
+  }
+
   .cart-product {
-    flex-direction: column;
+    flex-direction: column;      /* stack image, details, button */
     align-items: flex-start;
+    flex-wrap: wrap;             /* allow items to wrap naturally */
+    gap: 0.75rem;
+  }
+
+  .product-image-placeholder {
+    width: 100%;
+    max-width: 200px;
+    height: 200px;
+    margin-right: 0;
+    align-self: center;
+  }
+
+  .remove-item {
+    margin-left: 0;              /* no autoshift on stacked layout */
+    align-self: flex-end;        /* place nicely at end of block */
+  }
+
+  .form-inline {
+    flex-direction: column;      /* split expiry/CVV vertically on small screens */
+    gap: 0.75rem;
+  }
+
+  h1 { font-size: 1.6rem; }
+  h2 { font-size: 1.2rem; }
+}
+
+/* <= 480px: tighter paddings and smaller image */
+@media (max-width: 480px) {
+  .cart-container { padding: 1rem; }
+  .cart-box { padding: 1rem; }
+  .product-image-placeholder {
+    max-width: 160px;
+    height: 160px;
+  }
+  .submit-order,
+  .submit-order-disabled {
+    font-size: 1.05rem;
+    padding: 0.9rem;
   }
 }
 
-/* CUSTOM SCROLLBAR FOR LEFT BOX */
-.left-box::-webkit-scrollbar {
-  width: 8px;
-}
-
+/* CUSTOM SCROLLBAR FOR LEFT BOX (webkit) */
+.left-box::-webkit-scrollbar { width: 8px; }
 .left-box::-webkit-scrollbar-thumb {
   background: #ccc;
   border-radius: 4px;
 }
-
-.left-box::-webkit-scrollbar-thumb:hover {
-  background: #aaa;
-}
+.left-box::-webkit-scrollbar-thumb:hover { background: #aaa; }

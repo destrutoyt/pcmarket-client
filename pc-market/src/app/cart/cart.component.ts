@@ -34,7 +34,7 @@ export class CartComponent {
         },
         error: (err) => console.error('Error fetching user data', err),
       });
-      this.cartService.fetchCartItems(userId);
+      this.cartService.getCartByUserId(userId);
     }
   }
 

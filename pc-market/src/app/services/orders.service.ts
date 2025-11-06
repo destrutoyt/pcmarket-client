@@ -23,7 +23,7 @@ export class OrdersService {
   loading = this._loading.asReadonly();
   error = this._error.asReadonly();
 
-  fetchOrders() {
+  getOrdersByUserId() {
     this._loading.set(true);
     this._error.set(null);
 

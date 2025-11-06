@@ -76,7 +76,7 @@ export class UserService {
   }
 
   /** Update user (PATCH) */
-  updateUser(userId: number, changes: Partial<User>) {
+  patchUser(userId: number, changes: Partial<User>) {
     return this.http.patch<User>(`${this.apiUrl}/${userId}`, changes).pipe(
       tap((user) => {
         // Keep signals in sync

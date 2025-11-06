@@ -1,3 +1,4 @@
+/* ====== NAVBAR WRAPPER ====== */
 header {
   width: 100%;
 }
@@ -70,7 +71,7 @@ header {
   transform: scale(1.1);
 }
 
-/* ===== NAV LINKS CENTER (HIDDEN BY DEFAULT ON MOBILE) ===== */
+/* ===== NAV LINKS CENTER (MOBILE DEFAULT) ===== */
 .nav-links-center {
   display: none;
   flex-direction: column;
@@ -91,30 +92,63 @@ header {
   display: flex;
 }
 
-.nav-links-center a {
+/* ===== GENERIC NAV LINK STYLE ===== */
+.nav-link {
   font-size: 1.1rem;
   text-transform: uppercase;
   font-weight: 600;
   text-decoration: none;
   color: rgb(37, 37, 37);
-  transition: color 0.3s ease;
+  transition: all 0.25s ease;
 }
 
-.nav-links-center a:hover,
-.nav-links-center a.active {
+.nav-link:hover,
+.nav-link.active {
   color: rgb(40, 119, 133);
   border-bottom: 2px solid rgb(40, 119, 133);
 }
 
-/* ===== USER MENU (MOBILE) ===== */
+/* ===== SIGN IN / LOG IN BUTTON ===== */
+.user-logged-out {
+  display: flex;
+  align-items: center;
+}
+.login-link {
+  background-color: #ffffff;
+  color: #006e5f;
+  font-weight: 600;
+  padding: 0.55rem 1.3rem;
+  border-radius: 9999px;
+  text-transform: uppercase;
+  font-size: 0.95rem;
+  border: 2px solid #006e5f;
+  transition: all 0.25s ease;
+}
+
+.login-link:hover {
+  background-color: #006e5f;
+  color: #ffffff;
+  transform: scale(1.05);
+}
+.login-link:active {
+  transform: scale(0.98);
+  box-shadow: 0 2px 4px rgba(0, 110, 95, 0.2);
+}
+
+/* ===== USER MENU ===== */
 .user-menu {
   display: flex;
   align-items: center;
-  gap: 0.75rem;
+  gap: 0.5rem;
   position: relative;
+  margin: 0;
+  padding: 0;
 }
-
-/* === USERNAME BUTTON === */
+.user-logged-in {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem; /* balanced spacing between welcome and cart */
+}
 .user-button {
   background: transparent;
   border: none;
@@ -125,38 +159,36 @@ header {
   display: flex;
   align-items: center;
   gap: 0.3rem;
-  color: rgb(37, 37, 37);
-  padding: 0.5rem 0.9rem;
+  color: #1a1a1a;
+  padding: 0.4rem 0.7rem;
   transition: all 0.25s ease;
-  user-select: none;
+  line-height: 1; /* keeps button compact vertically */
 }
 .user-button:hover {
-  background-color: rgba(40, 119, 133, 0.15);
-  color: rgb(40, 119, 133);
-  transform: translateY(-2px);
-  box-shadow: 0 3px 6px rgba(40, 119, 133, 0.2);
+  background-color: rgba(0, 110, 95, 0.15);
+  color: #004d41;
+  transform: scale(1.03);
 }
 .user-button:active {
-  transform: translateY(0);
+  transform: scale(0.98);
   box-shadow: 0 1px 3px rgba(78, 199, 118, 0.25);
 }
 .arrow {
-  margin-left: 6px;
-  font-size: 0.8rem;
+  font-size: 0.75rem;
+  margin-top: 1px;
 }
 
-.user-menu .cart-logo {
+/* ===== CART ICON ===== */
+.cart-logo {
   height: 28px;
   width: auto;
   cursor: pointer;
-  transition:
-    transform 0.3s ease,
-    filter 0.3s ease;
+  display: inline-block;
+  vertical-align: middle;
+  transition: transform 0.25s ease;
 }
-
-.user-menu .cart-logo:hover {
+.cart-logo:hover {
   transform: scale(1.1);
-  filter: brightness(1.2);
 }
 
 /* ===== DROPDOWN ===== */
@@ -178,8 +210,8 @@ header {
   opacity: 0;
   pointer-events: none;
   transition:
-    opacity 0.3s cubic-bezier(0.17, 0.67, 0.83, 0.67),
-    transform 0.3s cubic-bezier(0.17, 0.67, 0.83, 0.67);
+    opacity 0.3s ease,
+    transform 0.3s ease;
 }
 
 .dropdown.show {
@@ -192,6 +224,7 @@ header {
   display: block;
   padding: 12px 16px;
   text-decoration: none;
+  cursor: pointer;
   color: #1f2937;
   font-weight: 500;
   transition:
@@ -211,7 +244,7 @@ main {
 
 /* ===== TABLET (≥600px) ===== */
 @media (min-width: 600px) {
-  .nav-links-center a {
+  .nav-link {
     font-size: 1rem;
   }
 
@@ -221,6 +254,11 @@ main {
 
   .user-menu .cart-logo {
     height: 32px;
+  }
+
+  .login-link {
+    font-size: 1rem;
+    padding: 0.5rem 1.2rem;
   }
 }
 
@@ -233,9 +271,11 @@ main {
     padding: 0 150px;
     position: relative;
   }
+
   .logo-container {
     justify-self: start;
   }
+
   .nav-links-center {
     display: flex !important;
     justify-content: center;
@@ -246,33 +286,28 @@ main {
     box-shadow: none;
     position: static;
     padding: 0;
-    transition: none;
     width: 100%;
-  }
-  .user-menu,
-  li > a.nav-link {
-    justify-self: end;
   }
 
   .burger {
     display: none;
   }
 
-  .nav-links-center a {
-    font-size: 1.1rem;
-    text-transform: uppercase;
-    font-weight: 600;
-    text-decoration: none;
-    color: rgb(37, 37, 37);
-    transition: color 0.3s ease;
+  .user-menu,
+  li > a.nav-link {
+    justify-self: end;
   }
 
-  .nav-links-center a:hover,
-  .nav-links-center a.active {
-    color: rgb(40, 119, 133);
-    border-bottom: 2px solid rgb(40, 119, 133);
+  .login-link {
+    font-size: 1rem;
+    padding: 0.6rem 1.4rem;
   }
-
+  .cart-logo {
+    height: 32px;
+  }
+  .user-button {
+    font-size: 1.05rem;
+  }
   main {
     padding: 50px 150px 0 150px;
   }
@@ -280,7 +315,7 @@ main {
 
 /* ===== XL DESKTOP (≥1200px) ===== */
 @media (min-width: 1200px) {
-  .nav-links-center a {
+  .nav-link {
     font-size: 1.2rem;
   }
 
@@ -295,14 +330,31 @@ main {
   .user-menu .cart-logo {
     height: 36px;
   }
+
+  .login-link {
+    font-size: 1.1rem;
+    padding: 0.6rem 1.4rem;
+  }
 }
 
-/* ===== ANIMATION ===== */
+/* ===== ANIMATIONS ===== */
 @keyframes colorSlide {
   from {
     background-position: 0% 50%;
   }
   to {
     background-position: 200% 50%;
+  }
+}
+
+@keyframes mintFlow {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
   }
 }

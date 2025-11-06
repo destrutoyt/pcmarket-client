@@ -6,7 +6,7 @@
         <div class="product-info">
           <p class="seller">{{ product()!.shopName }}</p>
           <h1>{{ product()!.productName }}</h1>
-          <p class="category"><strong>Category:</strong> {{ product()!.categoryId }}</p>
+          <p class="category"><strong>Category:</strong> {{ product()!.category }}</p>
           <p class="description">{{ product()!.description }}</p>
           <p class="price">${{ product()!.price }}</p>
           <button class="add-to-cart" (click)="addToCart(product()!)">Add to Cart</button>

@@ -1,7 +1,12 @@
 [build]
-  command = "npx ng build --configuration production"
+  base = "pc-market"
+  command = "npm run build"
   publish = "dist/pc-market/browser"
-  functions = "netlify/functions"
 
-[[plugins]]
-  package = "@netlify/angular-runtime"
+[build.environment]
+  NODE_VERSION = "20"
+
+[[redirects]]
+  from = "/*"
+  to = "/index.html"
+  status = 200

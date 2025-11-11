@@ -50,7 +50,7 @@ export class CartComponent {
   };
 
   message() {
-    return 'Test message: cart loaded successfully';
+    return 'Cart loaded successfully';
   }
 
   placeOrder() {
@@ -62,7 +62,6 @@ export class CartComponent {
 
     this.cartService.checkout(userId!).subscribe({
       next: () => {
-        console.log('Checkout successful');
         this.router.navigate(['/success-order']);
       },
       error: (err) => {
@@ -72,11 +71,9 @@ export class CartComponent {
   }
 
   removeItem(cartItemId: number) {
-    console.log(`Removing item: ${cartItemId}`);
 
     this.cartService.deleteCartItem(cartItemId).subscribe({
       next: () => {
-        console.log('Item removed successfully');
         window.location.reload();
       },
       error: (err) => {

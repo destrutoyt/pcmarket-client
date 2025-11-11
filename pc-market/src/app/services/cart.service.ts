@@ -25,7 +25,6 @@ export class CartService {
     this._error.set(null);
     this.http.get<Cart>(`${this.apiUrl}/${userId}`).subscribe({
       next: (data) => {
-        console.log('Fetched cart items:', data);
         this._cart.set(data);
         this._loading.set(false);
       },

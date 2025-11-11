@@ -66,7 +66,6 @@ export class UserProfileComponent {
   updateUser(): void {
     const updated = this.editableUser();
     if (!updated) return;
-    console.warn('Updating user:', updated);
     this.userService.patchUser(updated.id, updated).subscribe({
       next: () => {
         this.originalUser.set({ ...updated });

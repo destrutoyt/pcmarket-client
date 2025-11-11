@@ -38,14 +38,14 @@ export class HomeComponent implements OnInit {
       const val = localStorage.getItem('userId');
       if (val) userId = Number(val);
     }
+
     if (!userId) {
       console.error('No user logged in. Cannot add to cart.');
       return;
     }
-    console.log('Adding to cart:', product);
+
     this.cartService.addProductToCart(Number(userId), product.id, 1).subscribe({
       next: (cart) => {
-        console.log('Product added to cart:', cart);
         this.showModal();
       },
       error: (err) => {

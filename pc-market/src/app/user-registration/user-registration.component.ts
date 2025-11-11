@@ -57,7 +57,6 @@ export class UserRegistrationComponent {
     };
 
     this.userService.createUser(userToCreate);
-    console.log('Registering user:', userToCreate);
   }
 
   // Login existing user

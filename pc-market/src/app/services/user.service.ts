@@ -67,7 +67,6 @@ export class UserService {
       )
       .subscribe((createdUser) => {
         if (createdUser) {
-          console.log('[USER CREATED]', createdUser);
           this._users.update((prev) => [...prev, createdUser]);
           this._selectedUser.set(createdUser);
         }
@@ -126,15 +125,13 @@ export class UserService {
             this._username.set(username);
             this._id.set(res.userId);
 
-            console.log('%c[LOGIN] Fetching full user...', 'color:blue');
             this.getSelectedUser(res.userId.toString()).subscribe({
-              next: (u) => console.log('%c[LOGIN] User loaded:', 'color:green', u),
+              next: (u) => this._user.set(u),
             });
           }
           this._loading.set(false);
         },
         error: (err) => {
-          console.error('[LOGIN ERROR]', err);
           this._error.set('Invalid username or password');
           this._loading.set(false);
         },

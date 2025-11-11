@@ -33,6 +33,10 @@ pc-market/.angular/cache/*/pc-market/.tsbuildinfo
 .history/
 /connect.lock
 
-
+pc-market\.netlify
+pc-market\dist
 .DS_Store
 Thumbs.db
+
+# Local Netlify folder
+.netlify

@@ -1,0 +1,9 @@
+{
+  "routes": {
+    "/": {},
+    "/about": {},
+    "/cart": {},
+    "/orders": {},
+    "/register": {}
+  }
+}

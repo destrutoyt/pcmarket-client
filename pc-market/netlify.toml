@@ -1,0 +1,7 @@
+[build]
+  command = "ng build --configuration production"
+  publish = "dist/pc-market/browser"
+  functions = "netlify/functions"
+
+[[plugins]]
+  package = "@netlify/angular-runtime"

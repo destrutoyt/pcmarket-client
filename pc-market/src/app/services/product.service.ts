@@ -2,13 +2,14 @@ import { Injectable, signal, computed, inject } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Product } from '../models/product.model';
 import { catchError, of } from 'rxjs';
+import { environment } from '../../environments/environment.prod';
 
 @Injectable({
   providedIn: 'root'
 })
 export class ProductService {
   private http = inject(HttpClient);
-  private readonly apiUrl = 'http://localhost:8080/api/products';
+  private readonly apiUrl = `${environment.apiUrl}/products`;
 
   // === Signals ===
   private _products = signal<Product[]>([]);

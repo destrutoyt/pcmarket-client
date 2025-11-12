@@ -2,6 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { computed, inject, Injectable, signal } from '@angular/core';
 import { User } from '../models/user.model';
 import { catchError, of, tap } from 'rxjs';
+import { environment } from '../../environments/environment.prod';
 
 function isBrowser(): boolean {
   return typeof window !== 'undefined' && typeof localStorage !== 'undefined';
@@ -12,7 +13,7 @@ function isBrowser(): boolean {
 })
 export class UserService {
   private http = inject(HttpClient);
-  private readonly apiUrl = 'http://localhost:8080/api/users';
+  private readonly apiUrl = `${environment.apiUrl}/users`;
 
   // === Signals ===
   private _users = signal<User[]>([]);

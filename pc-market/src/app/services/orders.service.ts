@@ -4,6 +4,7 @@ import { DestroyRef, inject, Injectable, signal } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Orders } from '../models/order.model';
 import { UserService } from './user.service';
+import { environment } from '../../environments/environment.prod';
 
 @Injectable({
   providedIn: 'root',
@@ -13,7 +14,7 @@ export class OrdersService {
   private userService = inject(UserService);
   private destroyRef = inject(DestroyRef); // 👈 auto cleanup reference
 
-  private readonly apiUrl = 'http://localhost:8080/api/orders';
+  private readonly apiUrl = `${environment.apiUrl}/orders`;
 
   private _orders = signal<Orders[]>([]);
   private _loading = signal(false);
